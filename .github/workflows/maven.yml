@@ -30,6 +30,7 @@ jobs:
         name: my-artifact
         path: staging
   tests:
+    runs-on: windows-latest
     steps:
     - name: Run Unit Tests
       run: mvn test
