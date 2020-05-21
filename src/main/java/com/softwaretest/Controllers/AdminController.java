@@ -5,6 +5,7 @@ import com.softwaretest.Models.User;
 import com.softwaretest.Services.ProductService.ProductService;
 import com.softwaretest.Services.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,37 +36,47 @@ public class AdminController
         return "admin/userList";
     }
 
-    @GetMapping("/user")
-    public String getUser(@RequestParam("userId") long userId, Model model)
+    //  Create Product
+    @GetMapping("/admin/product/create")
+    public String createProduct(Model model)
     {
-        try
-        {
-            User user = userService.findSpecificUser(userId);
-            model.addAttribute("user", user);
-        }
-        catch (Exception e)
-        {
-            model.addAttribute("Error", e);
-        }
+        Product product = new Product();
+        model.addAttribute("product", product);
 
-        return "admin/user";
+        return "admin/product/create";
     }
 
-    @PostMapping("/deleteUser")
-    public String deleteUser(@ModelAttribute User user)
+    @PostMapping("/admin/product/create")
+    public String createProduct(@ModelAttribute Product product)
     {
-        try
-        {
-            userService.deleteUser(user);
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
+        productService.createOrUpdateProduct(product);
 
+        return "admin/product/create";
+    }
+
+    //  Edit Product
+    @GetMapping("/admin/product/update")
+    public String updateProduct(@Param("productId") long productId, Model model)
+    {
+        Product product = productService.findSpecificProduct(productId);
+        model.addAttribute("product", product);
+
+        return "admin/product/update";
+    }
+
+    @PostMapping("/admin/product/update")
+    public String updateProduct(@ModelAttribute Product product)
+    {
+        productService.createOrUpdateProduct(product);
         return "redirect:/admin/users";
     }
 
-
+    //  Delete Product
+    @PostMapping("/admin/product/delete")
+    public String deleteProduct(@ModelAttribute Product product)
+    {
+        productService.deleteProduct(product);
+        return "redirect:/admin/users";
+    }
 
 }
