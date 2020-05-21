@@ -21,59 +21,17 @@ public class ProductController
     @Autowired
     ProductService productService;
 
-    //  Create Product
-    @GetMapping("/admin/create")
-    public String createProduct(Model model)
-    {
-        Product product = new Product();
-        model.addAttribute("product", product);
-
-        return "admin/createProduct";
-    }
-
-    @PostMapping("/admin/create/product")
-    public String createProduct(@ModelAttribute Product product)
-    {
-        productService.createOrUpdateProduct(product);
-
-        return "redirect:/admin/users";
-    }
-
-    //  Edit Product
-    @GetMapping("/admin/update")
-    public String updateProduct(@Param("productId") long productId, Model model)
-    {
-        Product product = productService.findSpecificProduct(productId);
-        model.addAttribute("product", product);
-
-        return "admin/updateProduct";
-    }
-    @PostMapping("/admin/update")
-    public String updateProduct(@ModelAttribute Product product)
-    {
-        productService.createOrUpdateProduct(product);
-        return "redirect:/admin/users";
-    }
-
-    //  Delete Product
-    @PostMapping("/admin/delete")
-    public String deleteProduct(@ModelAttribute Product product)
-    {
-        productService.deleteProduct(product);
-        return "redirect:/admin/users";
-    }
-
     //  Read Product
-    @GetMapping("/admin/product")
+    @GetMapping("/product/details")
     public String getProduct(@RequestParam("productId") long productId, Model model)
     {
         Product product = productService.findSpecificProduct(productId);
         model.addAttribute("product", product);
-        return "admin/product";
+        return "product";
     }
 
     //  Read Products
-    @GetMapping("/admin/products")
+    @GetMapping("/products")
     public String getProducts(Model model)
     {
         try
@@ -86,6 +44,6 @@ public class ProductController
             model.addAttribute("Error", e);
         }
 
-        return "admin/productList";
+        return "productList";
     }
 }

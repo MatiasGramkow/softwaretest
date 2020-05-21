@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface IUserService
 {
-    List<User> getAllUsers();
+    void createOrUpdateUser(User user);
 
     User findSpecificUser(long userId);
+
+    List<User> getAllUsers();
 
     void deleteUser(User user);
 }
