@@ -24,7 +24,7 @@ jobs:
       run: mvn -B package --file pom.xml
     - run: mkdir staging && cp target/*.jar staging
     - uses: actions/upload-artifact@v2
-        with:
+      with:
         name: my-artifact
         path: C:\Users\Matias Gramkow\Desktop\Software_Development\Software_Testing\Exam\src\main
 
