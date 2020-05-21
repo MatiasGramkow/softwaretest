@@ -24,8 +24,6 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Tests Running
       run: mvn test
-    - name: Use local my-action
-      uses: ./src/test/java
     - run: mkdir staging && cp target/*.jar staging
     - uses: actions/upload-artifact@v1
       with:
