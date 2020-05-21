@@ -26,6 +26,6 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: C:\Users\Matias Gramkow\Desktop\Software_Development\Software_Testing\Exam\src\main
+        path: C:\Users\Matias Gramkow\Desktop\Software_Development\Software_Testing\Exam\src\main\java
 
 
