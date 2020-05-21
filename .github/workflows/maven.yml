@@ -20,11 +20,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Tests Running
-      run: mvn test
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-
+    - name: Tests Running
+      run: mvn test
     - run: mkdir staging && cp target/*.jar staging
     - uses: actions/upload-artifact@v1
       with:
