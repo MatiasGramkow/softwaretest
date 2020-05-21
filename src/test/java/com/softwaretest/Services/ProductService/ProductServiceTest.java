@@ -11,23 +11,11 @@ class ProductServiceTest
     @Test
     void createOrUpdateProduct()
     {
-        String userName = "Niels";
-
-        User user = new User();
-        user.setUserName("Matias");
-
-        assertEquals(userName, user.getUserName());
     }
 
     @Test
     void findSpecificProduct()
     {
-        String userName = "Niels";
-
-        User user = new User();
-        user.setUserName("Matias");
-
-        assertEquals(userName, user.getUserName());
     }
 
     @Test
