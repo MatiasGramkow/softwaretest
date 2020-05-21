@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build and tests:
+  buildAndTests:
 
     runs-on: windows-latest
 
