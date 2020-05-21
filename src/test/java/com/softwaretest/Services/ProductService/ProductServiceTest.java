@@ -22,15 +22,33 @@ class ProductServiceTest
     @Test
     void findSpecificProduct()
     {
+        String userName = "Niels";
+
+        User user = new User();
+        user.setUserName("Matias");
+
+        assertEquals(userName, user.getUserName());
     }
 
     @Test
     void deleteProduct()
     {
+        String userName = "Matias";
+
+        User user = new User();
+        user.setUserName("Matias");
+
+        assertEquals(userName, user.getUserName());
     }
 
     @Test
     void getAllProducts()
     {
+        String userName = "Matias";
+
+        User user = new User();
+        user.setUserName("Matias");
+
+        assertEquals(userName, user.getUserName());
     }
 }
