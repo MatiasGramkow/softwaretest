@@ -30,6 +30,6 @@ jobs:
         name: my-artifact
         path: staging
   tests:
+    steps:
     - name: Run Unit Tests
       run: mvn test
-
