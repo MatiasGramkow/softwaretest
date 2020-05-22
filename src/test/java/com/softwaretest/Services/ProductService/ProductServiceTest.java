@@ -28,21 +28,22 @@ class ProductServiceTest
     {
         productController = new ProductController();
         adminController = new AdminController();
-        productService = new ProductService();
+        productService = mock(ProductService.class);
     }
 
     @Test
     void findSpecificProduct_ShouldReturn_Product()
     {
         // Given
-        //Product testProduct = new Product("TestProduct");
+            when(productService.findSpecificProduct(anyLong()))
+                    .thenReturn(new Product());
         // When
-        //Product result = productService.findSpecificProduct(1);
+        Product result = productService.findSpecificProduct(1);
         // Then
-        //assertEquals(testProduct, result);
-        //Jeg fik lange løg, kikker på det senere.
-        assertTrue(true);
+        assertEquals(Product.class.getName(), result.getClass().getName());
     }
+
+
 
 
 
