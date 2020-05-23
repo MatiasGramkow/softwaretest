@@ -1,8 +1,7 @@
 package com.softwaretest.Services.UserService;
 
-import com.softwaretest.Models.Product;
+import com.softwaretest.Exceptions.ErrorPrerequisites;
 import com.softwaretest.Models.User;
-import com.softwaretest.Repositories.ProductRepository;
 import com.softwaretest.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -19,6 +18,7 @@ public class UserService implements IUserService
     @Override
     public void createOrUpdateUser(User user)
     {
+        ErrorPrerequisites.usernameLength(user.getUserName());
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
         userRepository.save(user);
     }
@@ -38,6 +38,7 @@ public class UserService implements IUserService
     @Override
     public void deleteUser(User user)
     {
+        ErrorPrerequisites.notNull(user, "Required field");
         userRepository.delete(user);
     }
 

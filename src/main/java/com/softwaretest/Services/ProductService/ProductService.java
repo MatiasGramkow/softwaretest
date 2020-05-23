@@ -1,5 +1,6 @@
 package com.softwaretest.Services.ProductService;
 
+import com.softwaretest.Exceptions.ErrorPrerequisites;
 import com.softwaretest.Models.Product;
 import com.softwaretest.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
