@@ -33,6 +33,11 @@ public class Product
         this.products = products;
     }
 
+    public Product(String name)
+    {
+        this.name = name;
+    }
+
     public byte[] getImage()
     {
         return image;
