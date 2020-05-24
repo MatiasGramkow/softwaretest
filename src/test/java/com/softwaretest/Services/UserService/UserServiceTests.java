@@ -1,5 +1,6 @@
 package com.softwaretest.Services.UserService;
 
+import com.softwaretest.Controllers.CustomerController;
 import com.softwaretest.Exceptions.PersonalException;
 import com.softwaretest.Models.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,11 +21,13 @@ class UserServiceTests
     @InjectMocks
     private UserService userService;
     private User user;
+    private CustomerController customerController;
 
     @BeforeEach
     void setup()
     {
         this.user = new User();
+        this.customerController = new CustomerController();
     }
 
     @ParameterizedTest
@@ -67,6 +70,8 @@ class UserServiceTests
         assertEquals(personalException.getMessage(), "Username too long");
     }
 
+
+
     @Test
     void deleteUser()
     {
@@ -77,5 +82,33 @@ class UserServiceTests
         });
         //Then
         assertEquals(personalException.getMessage(), "Required field");
+    }
+
+
+    //Tried to do some login stuff, but wasnt sure what to do with dataproviders.
+    //@ParameterizedTest
+    //@ValueSource(strings = {"xXx1337killerxXx", "svingom123"})
+    void login_ShouldReturn_True()
+    {
+        //Given
+        user.setUserName("xXx1337killerxXx");
+        user.setPassword("svingom123");
+        //When
+        boolean result = customerController.login(user, user.getUserName(), user.getPassword());
+        //Then
+        assertTrue(result);
+    }
+
+    @Test
+    void login_ShouldReturn_False()
+    {
+        //Given
+        user.setUserName("Ole Nielsen");
+        user.setPassword("svingom1234");
+        String wrongPW = "svingom123";
+        //When
+        boolean result = customerController.login(user, user.getUserName(), wrongPW);
+        //Then
+        assertFalse(result);
     }
 }

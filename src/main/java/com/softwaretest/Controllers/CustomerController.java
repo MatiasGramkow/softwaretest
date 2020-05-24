@@ -79,4 +79,15 @@ public class CustomerController
         userService.deleteUser(user);
         return "redirect:/";
     }
+
+
+    //For testing purposes, don't know the right aproach with Spring
+    public boolean login(User user, String userName, String password)
+    {
+        if (user != null && userName == user.getUserName() && password == user.getPassword())
+        {
+            return true;
+        }
+        return false;
+    }
 }
