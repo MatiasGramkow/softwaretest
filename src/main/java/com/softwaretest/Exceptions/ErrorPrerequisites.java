@@ -1,5 +1,7 @@
 package com.softwaretest.Exceptions;
 
+import com.softwaretest.Models.Product;
+
 public class ErrorPrerequisites
 {
     public static <T> T notNull(T object, String message)
