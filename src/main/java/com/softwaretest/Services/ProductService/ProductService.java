@@ -17,6 +17,7 @@ public class ProductService implements IProductService
     @Override
     public void createOrUpdateProduct(Product product)
     {
+        ErrorPrerequisites.productNameLength(product.getName());
         productRepository.save(product);
     }
 

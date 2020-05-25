@@ -25,4 +25,14 @@ public class ErrorPrerequisites
 
         return field;
     }
+
+    public static String productNameLength(String field)
+    {
+        if(field.length() == 0)
+        {
+            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, "Required field");
+        }
+
+        return field;
+    }
 }

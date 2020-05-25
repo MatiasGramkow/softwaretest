@@ -1,34 +1,40 @@
 package com.softwaretest.Services.ProductService;
 
+import com.softwaretest.Constants.Constants;
 import com.softwaretest.Controllers.AdminController;
 import com.softwaretest.Controllers.ProductController;
+import com.softwaretest.Exceptions.PersonalException;
 import com.softwaretest.Models.Product;
 import com.softwaretest.Models.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class ProductServiceTest
 {
-    private AdminController adminController;
-    private ProductController productController;
+    @InjectMocks
     private ProductService productService;
-
+    private Product product;
+    private Constants constants;
 
     @BeforeEach
     void setup()
     {
-        productController = new ProductController();
-        adminController = new AdminController();
-        productService = mock(ProductService.class);
+        productService = new ProductService();
+        product = new Product();
+        constants = new Constants();
     }
 
     @Test
@@ -43,7 +49,18 @@ class ProductServiceTest
         assertEquals(Product.class.getName(), result.getClass().getName());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {""})
+    void createOrUpdateProductWithNoName_ShouldReturn_PersonalException(String input)
+    {
+        PersonalException personalException = assertThrows(PersonalException.class, () -> {
+            //When
+            product.setName(input);
+            productService.createOrUpdateProduct(product);
+        });
 
+        assertEquals(personalException.getMessage(), constants.MISSING_ARGUMENT);
+    }
 
 
 
