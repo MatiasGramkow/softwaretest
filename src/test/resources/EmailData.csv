@@ -1,0 +1,8 @@
+providedData,expectedError
+invalidformat,Invalid email
+.fedemail@gmail.com,Invalid email
+@gmail.com,Invalid email
+pikfjæs@gmail.,Invalid email
+nielsogradokanikkefindeudafatteste@,Invalid email
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss@s.dk,Email too long
+"",Required field
