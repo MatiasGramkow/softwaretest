@@ -12,5 +12,5 @@ public interface IUserService
 
     List<User> getAllUsers();
 
-    void deleteUser(User user);
+    boolean deleteUser(User user);
 }

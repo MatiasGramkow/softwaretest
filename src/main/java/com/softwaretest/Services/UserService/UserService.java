@@ -38,10 +38,11 @@ public class UserService implements IUserService
     }
 
     @Override
-    public void deleteUser(User user)
+    public boolean deleteUser(User user)
     {
-        ErrorPrerequisites.notNull(user, "User does not exist");
+        ErrorPrerequisites.idCheck(user.getUserId());
         userRepository.delete(user);
+        return true;
     }
 
 }
