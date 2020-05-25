@@ -50,6 +50,7 @@ class ProductServiceTest
     {
         PersonalException personalException = assertThrows(PersonalException.class, () -> {
             //When
+            product.setName("SomeName");
             product.setDescription(providedData);
             productService.createOrUpdateProduct(product);
         });
