@@ -1,21 +1,24 @@
 package com.softwaretest.Services.UserService;
 
-import com.softwaretest.Controllers.CustomerController;
 import com.softwaretest.Exceptions.PersonalException;
 import com.softwaretest.Models.User;
 import com.softwaretest.Repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.lang.reflect.Executable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.softwaretest.Exceptions.Constants.*;
+import static com.softwaretest.Exceptions.ErrorEnum.USER_DOES_NOT_EXIST_ARGUMENT;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +26,7 @@ import static org.mockito.Mockito.when;
 class UserServiceTests
 {
     private User user;
-    private CustomerController customerController;
+    private List<User> users;
 
     @Mock
     UserRepository userRepository;
@@ -35,78 +38,138 @@ class UserServiceTests
     void setup()
     {
         this.user = new User(1L,"matias","password","test@test.dk","ADMIN", 1);
-        this.customerController = new CustomerController();
+        users = new ArrayList<>();
     }
 
-    @ParameterizedTest
-    @ValueSource(longs = {1L, 2L, 3L})
-    void testss(Long id)
+
+    @Nested
+    class CreateOrUpdateTests
     {
-        //Given
-        user.setUserId(id);
-        when(userRepository.save(user)).thenReturn(user);
+        @ParameterizedTest(name = "providedData={0}")
+        @CsvFileSource(resources = "/CorrectUserData.csv", numLinesToSkip = 1)
+        void createOrUpdateUserWithCorrectData_ShouldReturn_True(Long id)
+        {
+            //Given
+            user.setUserId(id);
+            when(userRepository.save(user)).thenReturn(user);
 
-        //When
-        Long result = userService.createOrUpdateUser(user);
-
-        //Then
-        assertEquals(result, user.getUserId());
-    }
-
-    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
-    @CsvFileSource(resources = "/UsernameData.csv", numLinesToSkip = 1)
-    void userNameWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
-    {
-        PersonalException personalException = assertThrows(PersonalException.class, () -> {
             //When
-            user.setUserName(providedData);
-            userService.createOrUpdateUser(user);
+            Long result = userService.createOrUpdateUser(user);
 
-        });
-        //Then
-        assertEquals(personalException.getMessage(), expectedError);
+            //Then
+            assertEquals(result, user.getUserId());
+        }
 
+        @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+        @CsvFileSource(resources = "/IncorrectUsernameData.csv", numLinesToSkip = 1)
+        void userNameWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
+        {
+            PersonalException personalException = assertThrows(PersonalException.class, () ->
+            {
+                //When
+                user.setUserName(providedData);
+                userService.createOrUpdateUser(user);
+
+            });
+            //Then
+            assertEquals(personalException.getMessage(), expectedError);
+
+        }
+
+        @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+        @CsvFileSource(resources = "/IncorrectPasswordData.csv", numLinesToSkip = 1)
+        void passWordWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
+        {
+            PersonalException personalException = assertThrows(PersonalException.class, () ->
+            {
+                //When
+                user.setPassword(providedData);
+                userService.createOrUpdateUser(user);
+
+            });
+            //Then
+            assertEquals(personalException.getMessage(), expectedError);
+        }
+
+        @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+        @CsvFileSource(resources = "/IncorrectEmailData.csv", numLinesToSkip = 1)
+        void emailWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
+        {
+            PersonalException personalException = assertThrows(PersonalException.class, () ->
+            {
+                //When
+                user.setEmail(providedData);
+                userService.createOrUpdateUser(user);
+
+            });
+            //Then
+            assertEquals(personalException.getMessage(), expectedError);
+        }
     }
 
-    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
-    @CsvFileSource(resources = "/PasswordData.csv", numLinesToSkip = 1)
-    void passWordWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
+    @Nested
+    class DeleteUserTests
     {
-        PersonalException personalException = assertThrows(PersonalException.class, () -> {
-            //When
-            user.setPassword(providedData);
-            userService.createOrUpdateUser(user);
+        @ParameterizedTest(name = "providedData={0}")
+        @CsvFileSource(resources = "/CorrectUserData.csv", numLinesToSkip = 1)
+        void deleteUserWithCorrectData_ShouldReturn_True(long id)
+        {
+            // Given
+            Long currentId = id;
+            // When
+            user.setUserId(currentId);
+            boolean result = userService.deleteUser(user);
+            // Then
+            assertTrue(result);
+        }
 
-        });
-        //Then
-        assertEquals(personalException.getMessage(), expectedError);
+        @Test
+        void deleteUserWhenUserDoesNotExist_ShouldThrow_PersonalException()
+        {
+            PersonalException personalException = assertThrows(PersonalException.class, () -> {
+                //When
+                user.setUserId(null);
+                userService.deleteUser(user);
+
+            });
+            //Then
+            assertEquals(personalException.getMessage(), USER_DOES_NOT_EXIST);
+        }
     }
 
-    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
-    @CsvFileSource(resources = "/EmailData.csv", numLinesToSkip = 1)
-    void emailWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
+    @Nested
+    class FindUsersTests
     {
-        PersonalException personalException = assertThrows(PersonalException.class, () -> {
-            //When
-            user.setEmail(providedData);
-            userService.createOrUpdateUser(user);
+        @Test
+        void findSpecificUserWhenUserDoesNotExist_ShouldReturn_Null()
+        {
+            // Given none existing user
+            user.setUserId(2L);
+            // When
+            User result = userService.findSpecificUser(user.getUserId());
+            // Then
+            assertNull(result);
+        }
 
-        });
-        //Then
-        assertEquals(personalException.getMessage(), expectedError);
+        @Test
+        void findSpecificUserWhenUserDoesExist_ShouldReturn_User()
+        {
+            // Given
+            when(userRepository.getOne(user.getUserId())).thenReturn(user);
+            // When
+            User result = userService.findSpecificUser(user.getUserId());
+            // Then
+            assertEquals(result, user);
+        }
+
+        @Test
+        void getAllUsersWhenUsersDoesExist_ShouldReturn_Users()
+        {
+            when(userRepository.findAll()).thenReturn(users);
+
+            List<User> result = userService.getAllUsers();
+
+            assertEquals(result, users);
+        }
     }
-
-    @Test
-    void deleteUserWhenUserDoesNotExist_ShouldThrow_PersonalException()
-    {
-        PersonalException personalException = assertThrows(PersonalException.class, () -> {
-            //When
-            userService.deleteUser(null);
-
-        });
-        //Then
-        assertEquals(personalException.getMessage(), "User does not exist");
-    }
-
-
 }
