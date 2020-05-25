@@ -4,7 +4,8 @@ public class ErrorPrerequisites
 {
     public static <T> T notNull(T object, String message)
     {
-        if (object == null) {
+        if (object == null)
+        {
             throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, message);
         }
 

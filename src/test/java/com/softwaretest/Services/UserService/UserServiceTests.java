@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -70,7 +71,20 @@ class UserServiceTests
         assertEquals(personalException.getMessage(), "Username too long");
     }
 
+    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+    @CsvFileSource(resources = "/Username.csv", numLinesToSkip = 1)
+    void userNameWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
+    {
+        PersonalException personalException = assertThrows(PersonalException.class, () -> {
+            //When
+            user.setUserName(providedData);
+            userService.createOrUpdateUser(user);
 
+        });
+        //Then
+        assertEquals(personalException.getMessage(), expectedError);
+
+    }
 
     @Test
     void deleteUser()

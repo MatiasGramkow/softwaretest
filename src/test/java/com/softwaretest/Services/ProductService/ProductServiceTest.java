@@ -1,6 +1,6 @@
 package com.softwaretest.Services.ProductService;
 
-import static com.softwaretest.Constants.Constants.*;
+import com.softwaretest.Constants.Constants;
 import com.softwaretest.Controllers.AdminController;
 import com.softwaretest.Controllers.ProductController;
 import com.softwaretest.Exceptions.PersonalException;
@@ -27,12 +27,14 @@ class ProductServiceTest
     @InjectMocks
     private ProductService productService;
     private Product product;
+    private Constants constants;
 
     @BeforeEach
     void setup()
     {
         productService = new ProductService();
         product = new Product();
+        constants = new Constants();
     }
 
     @Test
@@ -57,7 +59,7 @@ class ProductServiceTest
             productService.createOrUpdateProduct(product);
         });
 
-        assertEquals(personalException.getMessage(), MISSING_ARGUMENT);
+        assertEquals(personalException.getMessage(), constants.MISSING_ARGUMENT);
     }
 
 
