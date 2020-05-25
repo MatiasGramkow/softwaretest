@@ -2,10 +2,7 @@ package com.softwaretest.Models;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "Products")
@@ -20,19 +17,19 @@ public class Product
 
     private String description;
 
-    @ManyToMany(mappedBy = "users")
-    private Set<User> products = new HashSet<>();
+    @ManyToMany(mappedBy = "products")
+    private Set<User> users = new HashSet<>();
 
     public Product()
     {
     }
 
-    public Product(Long productId, String name, byte[] image, Set<User> products, String description)
+    public Product(Long productId, String name, byte[] image, Set<User> users, String description)
     {
         this.productId = productId;
         this.name = name;
         this.image = image;
-        this.products = products;
+        this.users = users;
         this.description = description;
     }
 
@@ -71,14 +68,14 @@ public class Product
         this.name = name;
     }
 
-    public Set<User> getProducts()
+    public Set<User> getUsers()
     {
-        return products;
+        return users;
     }
 
-    public void setProducts(Set<User> products)
+    public void setUsers(Set<User> products)
     {
-        this.products = products;
+        this.users = products;
     }
 
     @Override
@@ -87,7 +84,7 @@ public class Product
         return "Product{" +
                 "productId=" + productId +
                 ", name='" + name + '\'' +
-                ", products=" + products +
+                ", products=" + users +
                 '}';
     }
 

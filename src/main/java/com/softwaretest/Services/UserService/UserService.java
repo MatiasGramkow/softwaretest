@@ -4,6 +4,8 @@ import com.softwaretest.Exceptions.ErrorPrerequisites;
 import com.softwaretest.Models.User;
 import com.softwaretest.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,19 @@ public class UserService implements IUserService
         ErrorPrerequisites.idCheck(user.getUserId());
         userRepository.delete(user);
         return true;
+    }
+
+    public User getCurrentlyLoggedInUser() {
+        String email;
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        email = ((UserDetails) principal).getUsername();
+
+        ErrorPrerequisites.notNull(email, "User does not have an email");
+
+        return userRepository.getOneByEmail(email);
+
     }
 
 }

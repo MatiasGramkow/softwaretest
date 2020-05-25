@@ -31,21 +31,21 @@ public class User implements Serializable
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "Users_Products",
+            name = "Products_Users",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "product_id") }
     )
-    Set<User> users = new HashSet<>();
+    Set<Product> products = new HashSet<>();
 
 
-    public User(Long userId, String userName, String password, String email, String role, Set<User> users)
+    public User(Long userId, String userName, String password, String email, String role, Set<Product> products)
     {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.role = role;
-        this.users = users;
+        this.products = products;
         this.enabled = 1;
     }
 
@@ -123,14 +123,14 @@ public class User implements Serializable
         this.role = role;
     }
 
-    public Set<User> getUsers()
+    public Set<Product> getProducts()
     {
-        return users;
+        return products;
     }
 
-    public void setUsers(Set<User> users)
+    public void setProducts(Set<Product> products)
     {
-        this.users = users;
+        this.products = products;
     }
 
     @Override
@@ -142,7 +142,7 @@ public class User implements Serializable
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
-                ", users=" + users +
+                ", products=" + products +
                 '}';
     }
 }

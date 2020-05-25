@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+
+<nav th:fragment="navbar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" th:href="${'/'}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" th:href="${'/products'}">Browse Products</a>
+                </li>
+                <span sec:authorize="isAuthenticated()">
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                        <a class="nav-link text-dark" th:href="${'/users'}">User Management</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark">Favorite Products</a>
+                    </li>
+                </span>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

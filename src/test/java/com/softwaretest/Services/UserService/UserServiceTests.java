@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -38,7 +39,7 @@ class UserServiceTests
     void setup()
     {
         this.user = new User(1L,"matias","password","test@test.dk","ADMIN", 1);
-        users = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
 
@@ -140,11 +141,12 @@ class UserServiceTests
     @Nested
     class FindUsersTests
     {
-        @Test
-        void findSpecificUserWhenUserDoesNotExist_ShouldReturn_Null()
+        @ParameterizedTest
+        @ValueSource(longs = {1L, 2L, 3L})
+        void findSpecificUserWhenUserDoesNotExist_ShouldReturn_Null(Long id)
         {
             // Given none existing user
-            user.setUserId(2L);
+            user.setUserId(id);
             // When
             User result = userService.findSpecificUser(user.getUserId());
             // Then

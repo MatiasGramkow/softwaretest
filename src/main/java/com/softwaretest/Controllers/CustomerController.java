@@ -48,6 +48,17 @@ public class CustomerController
         return "redirect:/";
     }
 
+    /*
+    @PostMapping("/postman/user/create")
+    public String postManCreateUser()
+    {
+        User user = new User(1L,"Matias","matias12","matias@matias.dk","ADMIN",1);
+        userService.createOrUpdateUser(user);
+        return "redirect:/";
+    }
+
+     */
+
     @GetMapping("/user/update")
     public String updateUser(@Param("userId") long userId, Model model)
     {
