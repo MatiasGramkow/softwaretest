@@ -18,6 +18,8 @@ public class Product
 
     private byte[] image;
 
+    private String description;
+
     @ManyToMany(mappedBy = "users")
     private Set<User> products = new HashSet<>();
 
@@ -25,12 +27,13 @@ public class Product
     {
     }
 
-    public Product(Long productId, String name, byte[] image, Set<User> products)
+    public Product(Long productId, String name, byte[] image, Set<User> products, String description)
     {
         this.productId = productId;
         this.name = name;
         this.image = image;
         this.products = products;
+        this.description = description;
     }
 
     public Product(String name)
@@ -86,5 +89,13 @@ public class Product
                 ", name='" + name + '\'' +
                 ", products=" + products +
                 '}';
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

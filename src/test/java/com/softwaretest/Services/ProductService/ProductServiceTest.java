@@ -1,12 +1,13 @@
 package com.softwaretest.Services.ProductService;
 
-import com.softwaretest.Exceptions.Constants;
+import static com.softwaretest.Exceptions.Constants.*;
 import com.softwaretest.Exceptions.PersonalException;
 import com.softwaretest.Models.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -21,45 +22,70 @@ class ProductServiceTest
     @InjectMocks
     private ProductService productService;
     private Product product;
-    private Constants constants;
 
     @BeforeEach
     void setup()
     {
         productService = new ProductService();
         product = new Product();
-        constants = new Constants();
     }
 
-    /*
+    //Given
+    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+    @CsvFileSource(resources = "/ProductNameData.csv", numLinesToSkip = 1)
+    void createOrUpdateProductWithNoName_ShouldReturn_PersonalException(String providedData, String expectedError)
+    {
+        PersonalException personalException = assertThrows(PersonalException.class, () -> {
+            //When
+            product.setName(providedData);
+            productService.createOrUpdateProduct(product);
+        });
+
+        //Then
+        assertEquals(personalException.getMessage(), expectedError);
+    }
+
+    //Given
+    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+    @CsvFileSource(resources = "/ProductDescriptionData.csv", numLinesToSkip = 1)
+    void createOrUpdateProductWithNoDescriptionAndTooLongDescription_ShouldReturn_PersonalException(String providedData, String expectedError)
+    {
+        PersonalException personalException = assertThrows(PersonalException.class, () -> {
+            //When
+            product.setName("SomeName");
+            product.setDescription(providedData);
+            productService.createOrUpdateProduct(product);
+        });
+
+        //Then
+        assertEquals(personalException.getMessage(), expectedError);
+    }
+/*
     @Test
     void findSpecificProduct_ShouldReturn_Product()
     {
         // Given
-            when(productService.findSpecificProduct(anyLong()))
-                    .thenReturn(new Product());
+        when(productService.findSpecificProduct(anyLong()))
+                .thenReturn(new Product());
         // When
-        Product result = productService.findSpecificProduct(1);
+        Product result = productService.findSpecificProduct(1L);
+
         // Then
         assertEquals(Product.class.getName(), result.getClass().getName());
     }
-
-    @ParameterizedTest
-    @ValueSource(strings = {""})
-    void createOrUpdateProductWithNoName_ShouldReturn_PersonalException(String input)
+*/
+    @Test
+    void deleteProduct_ShouldThrow_PersonalException()
     {
+        //Given
+        product = null;
+
         PersonalException personalException = assertThrows(PersonalException.class, () -> {
             //When
-            product.setName(input);
-            productService.createOrUpdateProduct(product);
+            productService.deleteProduct(product);
         });
 
-        assertEquals(personalException.getMessage(), constants.MISSING_ARGUMENT);
+        //Then
+        assertEquals(personalException.getMessage(), FIELD_REQUIRED);
     }
-
-    */
-
-
-
-
 }

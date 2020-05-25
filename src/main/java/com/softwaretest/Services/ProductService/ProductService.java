@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.softwaretest.Exceptions.Constants.*;
+
 @Service
 public class ProductService implements IProductService
 {
@@ -18,6 +20,7 @@ public class ProductService implements IProductService
     public void createOrUpdateProduct(Product product)
     {
         ErrorPrerequisites.productNameLength(product.getName());
+        ErrorPrerequisites.productDescriptionLength(product.getDescription());
         productRepository.save(product);
     }
 
@@ -30,7 +33,7 @@ public class ProductService implements IProductService
     @Override
     public void deleteProduct(Product product)
     {
-
+        ErrorPrerequisites.notNull(product, FIELD_REQUIRED);
         productRepository.delete(product);
     }
 
