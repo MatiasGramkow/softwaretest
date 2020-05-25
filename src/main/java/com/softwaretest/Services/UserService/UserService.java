@@ -18,7 +18,9 @@ public class UserService implements IUserService
     @Override
     public void createOrUpdateUser(User user)
     {
-        ErrorPrerequisites.usernameLength(user.getUserName());
+        ErrorPrerequisites.usernameCheck(user.getUserName());
+        ErrorPrerequisites.passwordCheck(user.getPassword());
+        ErrorPrerequisites.emailCheck(user.getEmail());
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
         userRepository.save(user);
     }
@@ -38,7 +40,7 @@ public class UserService implements IUserService
     @Override
     public void deleteUser(User user)
     {
-        ErrorPrerequisites.notNull(user, "Required field");
+        ErrorPrerequisites.notNull(user, "User does not exist");
         userRepository.delete(user);
     }
 

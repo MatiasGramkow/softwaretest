@@ -1,0 +1,8 @@
+providedData,expectedError
+ma,Username too short
+mats,Username too short
+MatiasMoeskjaerGramko,Username too long
+MatiasMoeskjaerGramkow,Username too long
+name withspaces,Invalid username
+jens@[£¡£½,Invalid username
+"",Required field
