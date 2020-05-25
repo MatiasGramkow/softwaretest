@@ -10,11 +10,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.lang.reflect.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTests
@@ -27,20 +28,19 @@ class UserServiceTests
     @BeforeEach
     void setup()
     {
-        this.user = new User();
+        this.user = new User(1L,"matias","password","test@test.dk","ADMIN", 1);
         this.customerController = new CustomerController();
     }
-
     @ParameterizedTest
-    @ValueSource(strings = {"MatiasGramkow", "MatiasG", "Ma10as"})
-    void setUsernameWithCorrectData_ShouldReturn_Username(String usernames)
+    @ValueSource(longs = {1L, 2L, 3L})
+    void setUsernameWithCorrectData_ShouldReturn_Username(Long ids)
     {
         // Given
-        String username = usernames;
+        user.setUserId(ids);
         // When
-        user.setUserName(username);
+        Long methodId = userService.createOrUpdateUser(user);
         // Then
-        assertEquals(username, user.getUserName());
+        assertNotNull(methodId);
     }
 
     @ParameterizedTest
@@ -72,7 +72,7 @@ class UserServiceTests
     }
 
     @ParameterizedTest(name = "providedData={0}, expectedError={1}")
-    @CsvFileSource(resources = "/Username.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/UsernameData.csv", numLinesToSkip = 1)
     void userNameWithIncorrectData_ShouldThrow_PersonalException(String providedData, String expectedError)
     {
         PersonalException personalException = assertThrows(PersonalException.class, () -> {

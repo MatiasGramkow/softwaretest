@@ -31,6 +31,7 @@ class ProductServiceTest
         constants = new Constants();
     }
 
+    /*
     @Test
     void findSpecificProduct_ShouldReturn_Product()
     {
@@ -55,6 +56,9 @@ class ProductServiceTest
 
         assertEquals(personalException.getMessage(), constants.MISSING_ARGUMENT);
     }
+
+    */
+
 
 
 

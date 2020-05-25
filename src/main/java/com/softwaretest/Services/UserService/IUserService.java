@@ -1,13 +1,12 @@
 package com.softwaretest.Services.UserService;
 
-import com.softwaretest.Models.Product;
 import com.softwaretest.Models.User;
 
 import java.util.List;
 
 public interface IUserService
 {
-    void createOrUpdateUser(User user);
+    Long createOrUpdateUser(User user);
 
     User findSpecificUser(long userId);
 
