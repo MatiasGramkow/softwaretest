@@ -25,6 +25,4 @@ public class ErrorPrerequisites
 
         return field;
     }
-
-
 }

@@ -32,7 +32,7 @@ class UserServiceTests
 
     @ParameterizedTest
     @ValueSource(strings = {"MatiasGramkow", "MatiasG", "Ma10as"})
-    void should_Return_Correct_When_Username_Is_Correct(String usernames)
+    void setUsernameWithCorrectData_ShouldReturn_Username(String usernames)
     {
         // Given
         String username = usernames;
@@ -44,7 +44,7 @@ class UserServiceTests
 
     @ParameterizedTest
     @ValueSource(strings = {"Ma", "Ti", " "})
-    void should_Return_False_When_Username_Is_Too_Short(String usernames)
+    void createOrUpdateUserWithIncorrectData_ShouldThrow_PersonalException(String usernames)
     {
         PersonalException personalException = assertThrows(PersonalException.class, () -> {
             //When
