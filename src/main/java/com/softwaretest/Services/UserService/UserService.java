@@ -16,13 +16,13 @@ public class UserService implements IUserService
     UserRepository userRepository;
 
     @Override
-    public void createOrUpdateUser(User user)
+    public Long createOrUpdateUser(User user)
     {
         ErrorPrerequisites.usernameCheck(user.getUserName());
         ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
-        userRepository.save(user);
+        return userRepository.save(user).getUserId();
     }
 
     @Override

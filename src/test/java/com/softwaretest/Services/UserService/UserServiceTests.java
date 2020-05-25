@@ -32,15 +32,16 @@ class UserServiceTests
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"MatiasGramkow", "MatiasG", "Ma10as"})
-    void setUsernameWithCorrectData_ShouldReturn_Username(String usernames)
+    @ValueSource(longs = {1L, 2L, 3L})
+    void testss(Long id)
     {
         // Given
-        String username = usernames;
+        Long currentId = id;
         // When
-        user.setUserName(username);
+        user.setUserId(currentId);
+        Long result = userService.createOrUpdateUser(user);
         // Then
-        assertEquals(username, user.getUserName());
+        assertNotNull(result);
     }
 
     @ParameterizedTest(name = "providedData={0}, expectedError={1}")
