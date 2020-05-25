@@ -15,6 +15,15 @@ public class ErrorPrerequisites
         return object;
     }
 
+    public static Long idCheck(Long id)
+    {
+        if (id == null)
+        {
+            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, USER_DOES_NOT_EXIST);
+        }
+        return id;
+    }
+
     public static String usernameCheck(String field)
     {
 
