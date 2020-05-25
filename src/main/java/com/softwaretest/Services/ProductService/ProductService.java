@@ -17,11 +17,11 @@ public class ProductService implements IProductService
     ProductRepository productRepository;
 
     @Override
-    public void createOrUpdateProduct(Product product)
+    public Long createOrUpdateProduct(Product product)
     {
         ErrorPrerequisites.productNameLength(product.getName());
         ErrorPrerequisites.productDescriptionLength(product.getDescription());
-        productRepository.save(product);
+        return productRepository.save(product).getProductId();
     }
 
     @Override
@@ -31,10 +31,18 @@ public class ProductService implements IProductService
     }
 
     @Override
-    public void deleteProduct(Product product)
+    public boolean deleteProduct(Product product)
     {
         ErrorPrerequisites.notNull(product, FIELD_REQUIRED);
-        productRepository.delete(product);
+        try
+        {
+            productRepository.delete(product);
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

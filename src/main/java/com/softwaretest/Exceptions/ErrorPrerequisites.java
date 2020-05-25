@@ -29,23 +29,23 @@ public class ErrorPrerequisites
 
         if (field.length() > 20)
         {
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, "Username too long");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, USERNAME_TOO_LONG);
         }
 
         if (field.length() < 5 && field.length() > 0) {
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_SHORT_ARGUMENT, "Username too short");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_SHORT_ARGUMENT, USERNAME_TOO_SHORT);
         }
 
         if (field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
         }
 
         if(field.contains(" ")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_CONTAINS_SPACES_ARGUMENT, "Invalid username");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_CONTAINS_SPACES_ARGUMENT, USERNAME_INVALID);
         }
 
         if (!field.matches("[a-zA-Z0-9.]*")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_CONTAINS_SYMBOLS_ARGUMENT, "Invalid username");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_CONTAINS_SYMBOLS_ARGUMENT, USERNAME_INVALID);
         }
 
         return field;
@@ -54,15 +54,15 @@ public class ErrorPrerequisites
     public static String passwordCheck(String field){
 
         if (field.length() > 16){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, "Password too long");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, PASSWORD_TOO_LONG);
         }
 
         if (field.length() < 8 && field.length() > 0){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_SHORT_ARGUMENT, "Password too short");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_SHORT_ARGUMENT, PASSWORD_TOO_SHORT);
         }
 
         if (field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
         }
 
         return field;
@@ -71,15 +71,15 @@ public class ErrorPrerequisites
     public static String emailCheck(String field){
 
         if (field.length() > 200){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, "Email too long");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, EMAIL_TOO_LONG);
         }
 
         if(field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
         }
 
         if (!field.matches("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_INVALID_FORMAT_ARGUMENT, "Invalid email");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_INVALID_FORMAT_ARGUMENT, EMAIL_INVALID);
         }
 
         return field;
@@ -90,12 +90,12 @@ public class ErrorPrerequisites
     {
         if(field.length() == 0)
         {
-            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, FIELD_REQUIRED);
         }
 
         if(field.length() > 255)
         {
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, "Product name too long");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, PRODUCT_NAME_TOO_LONG);
         }
 
         return field;
@@ -106,11 +106,11 @@ public class ErrorPrerequisites
 
         if(field.length() == 0)
         {
-            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, FIELD_REQUIRED);
         }
         if(field.length() > 255)
         {
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, "Product description too long");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, PRODUCT_DESCRIPTION_TOO_LONG);
         }
 
         return field;
