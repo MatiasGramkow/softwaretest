@@ -1,21 +1,16 @@
 package com.softwaretest.Services.ProductService;
 
 import static com.softwaretest.Exceptions.Constants.*;
-import com.softwaretest.Controllers.AdminController;
-import com.softwaretest.Controllers.ProductController;
 import com.softwaretest.Exceptions.PersonalException;
 import com.softwaretest.Models.Product;
-import com.softwaretest.Models.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.ui.Model;
 
 
 import static org.mockito.Mockito.*;
@@ -36,17 +31,30 @@ class ProductServiceTest
         product = new Product();
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {""})
-    void createOrUpdateProductWithNoName_ShouldReturn_PersonalException(String input)
+    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+    @CsvFileSource(resources = "/ProductName.csv", numLinesToSkip = 1)
+    void createOrUpdateProductWithNoName_ShouldReturn_PersonalException(String providedData, String expectedError)
     {
         PersonalException personalException = assertThrows(PersonalException.class, () -> {
             //When
-            product.setName(input);
+            product.setName(providedData);
             productService.createOrUpdateProduct(product);
         });
 
-        assertEquals(personalException.getMessage(), FIELD_REQUIRED);
+        assertEquals(personalException.getMessage(), expectedError);
+    }
+
+    @ParameterizedTest(name = "providedData={0}, expectedError={1}")
+    @CsvFileSource(resources = "/ProductDescription.csv", numLinesToSkip = 1)
+    void createOrUpdateProductWithNoDescriptionAndTooLongDescription_ShouldReturn_PersonalException(String providedData, String expectedError)
+    {
+        PersonalException personalException = assertThrows(PersonalException.class, () -> {
+            //When
+            product.setDescription(providedData);
+            productService.createOrUpdateProduct(product);
+        });
+
+        assertEquals(personalException.getMessage(), expectedError);
     }
 
     @Test

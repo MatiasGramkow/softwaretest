@@ -20,6 +20,7 @@ public class ProductService implements IProductService
     public void createOrUpdateProduct(Product product)
     {
         ErrorPrerequisites.productNameLength(product.getName());
+        ErrorPrerequisites.productDescriptionLength(product.getDescription());
         productRepository.save(product);
     }
 

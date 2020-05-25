@@ -1,6 +1,7 @@
 package com.softwaretest.Exceptions;
 
 import com.softwaretest.Models.Product;
+import static com.softwaretest.Exceptions.Constants.*;
 
 public class ErrorPrerequisites
 {
@@ -34,6 +35,26 @@ public class ErrorPrerequisites
         if(field.length() == 0)
         {
             throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, "Required field");
+        }
+
+        if(field.length() > 255)
+        {
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, "Product name too long");
+        }
+
+        return field;
+    }
+
+    public static String productDescriptionLength(String field)
+    {
+
+        if(field.length() == 0)
+        {
+            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, "Required field");
+        }
+        if(field.length() > 255)
+        {
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, "Product description too long");
         }
 
         return field;
