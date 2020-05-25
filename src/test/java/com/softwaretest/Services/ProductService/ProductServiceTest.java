@@ -36,18 +36,6 @@ class ProductServiceTest
         product = new Product();
     }
 
-    @Test
-    void findSpecificProduct_ShouldReturn_Product()
-    {
-        // Given
-            when(productService.findSpecificProduct(anyLong()))
-                    .thenReturn(new Product());
-        // When
-        Product result = productService.findSpecificProduct(1);
-        // Then
-        assertEquals(Product.class.getName(), result.getClass().getName());
-    }
-
     @ParameterizedTest
     @ValueSource(strings = {""})
     void createOrUpdateProductWithNoName_ShouldReturn_PersonalException(String input)
@@ -61,6 +49,30 @@ class ProductServiceTest
         assertEquals(personalException.getMessage(), FIELD_REQUIRED);
     }
 
+    @Test
+    void findSpecificProduct_ShouldReturn_Product()
+    {
+        // Given
+        when(productService.findSpecificProduct(anyLong()))
+                .thenReturn(new Product());
+        // When
+        Product result = productService.findSpecificProduct(1);
+        // Then
+        assertEquals(Product.class.getName(), result.getClass().getName());
+    }
 
+    @Test
+    void deleteProduct_ShouldThrow_PersonalException()
+    {
+        //Given
+        product = null;
 
+        PersonalException personalException = assertThrows(PersonalException.class, () -> {
+            //When
+            productService.deleteProduct(product);
+        });
+
+        //Then
+        assertEquals(personalException.getMessage(), FIELD_REQUIRED);
+    }
 }
