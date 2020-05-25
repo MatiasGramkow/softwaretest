@@ -26,7 +26,7 @@ public class CustomerController
     @PostMapping("/product")
     public String addToFavoriteList(@ModelAttribute Product product)
     {
-
+        User user = userService.getCurrentlyLoggedInUser();
         //productService.addProductToFavoriteList(product);
         return "";
     }

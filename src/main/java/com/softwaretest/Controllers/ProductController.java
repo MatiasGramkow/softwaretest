@@ -52,7 +52,7 @@ public class ProductController
             model.addAttribute("Error", e);
         }
 
-        return "products";
+        return "product/products";
     }
 
     // Favorite products
