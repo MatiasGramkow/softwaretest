@@ -121,14 +121,15 @@ class ProductServiceTest
         assertEquals(personalException.getMessage(), expectedError);
     }
 
-    @Test
-    void findSpecificProduct_ShouldReturn_Product()
+    @ParameterizedTest
+    @ValueSource(longs = {1L, 2L, 3L})
+    void findSpecificProduct_ShouldReturn_Product(long id)
     {
         // Given
         when(productService.findSpecificProduct(anyLong()))
                 .thenReturn(new Product());
         // When
-        Product result = productService.findSpecificProduct(1L);
+        Product result = productService.findSpecificProduct(id);
 
         // Then
         assertEquals(Product.class.getName(), result.getClass().getName());
