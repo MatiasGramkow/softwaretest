@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,8 +30,9 @@ class ProductServiceTest
         product = new Product();
     }
 
+    //Given
     @ParameterizedTest(name = "providedData={0}, expectedError={1}")
-    @CsvFileSource(resources = "/ProductName.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/ProductNameData.csv", numLinesToSkip = 1)
     void createOrUpdateProductWithNoName_ShouldReturn_PersonalException(String providedData, String expectedError)
     {
         PersonalException personalException = assertThrows(PersonalException.class, () -> {
@@ -41,11 +41,13 @@ class ProductServiceTest
             productService.createOrUpdateProduct(product);
         });
 
+        //Then
         assertEquals(personalException.getMessage(), expectedError);
     }
 
+    //Given
     @ParameterizedTest(name = "providedData={0}, expectedError={1}")
-    @CsvFileSource(resources = "/ProductDescription.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/ProductDescriptionData.csv", numLinesToSkip = 1)
     void createOrUpdateProductWithNoDescriptionAndTooLongDescription_ShouldReturn_PersonalException(String providedData, String expectedError)
     {
         PersonalException personalException = assertThrows(PersonalException.class, () -> {
@@ -55,9 +57,10 @@ class ProductServiceTest
             productService.createOrUpdateProduct(product);
         });
 
+        //Then
         assertEquals(personalException.getMessage(), expectedError);
     }
-
+/*
     @Test
     void findSpecificProduct_ShouldReturn_Product()
     {
@@ -65,11 +68,12 @@ class ProductServiceTest
         when(productService.findSpecificProduct(anyLong()))
                 .thenReturn(new Product());
         // When
-        Product result = productService.findSpecificProduct(1);
+        Product result = productService.findSpecificProduct(1L);
+
         // Then
         assertEquals(Product.class.getName(), result.getClass().getName());
     }
-
+*/
     @Test
     void deleteProduct_ShouldThrow_PersonalException()
     {

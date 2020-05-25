@@ -3,6 +3,7 @@ package com.softwaretest.Services.UserService;
 import com.softwaretest.Controllers.CustomerController;
 import com.softwaretest.Exceptions.PersonalException;
 import com.softwaretest.Models.User;
+import com.softwaretest.Repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,19 +11,25 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTests
 {
-    @InjectMocks
-    private UserService userService;
     private User user;
     private CustomerController customerController;
+
+    @Mock
+    UserRepository userRepository;
+
+    @InjectMocks
+    UserService userService;
 
     @BeforeEach
     void setup()
@@ -32,15 +39,18 @@ class UserServiceTests
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"MatiasGramkow", "MatiasG", "Ma10as"})
-    void setUsernameWithCorrectData_ShouldReturn_Username(String usernames)
+    @ValueSource(longs = {1L, 2L, 3L})
+    void testss(Long id)
     {
-        // Given
-        String username = usernames;
-        // When
-        user.setUserName(username);
-        // Then
-        assertEquals(username, user.getUserName());
+        //Given
+        user.setUserId(id);
+        when(userRepository.save(user)).thenReturn(user);
+
+        //When
+        Long result = userService.createOrUpdateUser(user);
+
+        //Then
+        assertEquals(result, user.getUserId());
     }
 
     @ParameterizedTest(name = "providedData={0}, expectedError={1}")
