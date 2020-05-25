@@ -31,10 +31,18 @@ public class ProductService implements IProductService
     }
 
     @Override
-    public void deleteProduct(Product product)
+    public boolean deleteProduct(Product product)
     {
         ErrorPrerequisites.notNull(product, FIELD_REQUIRED);
-        productRepository.delete(product);
+        try
+        {
+            productRepository.delete(product);
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

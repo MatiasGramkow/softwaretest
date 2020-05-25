@@ -78,6 +78,19 @@ class ProductServiceTest
         assertEquals(result, expectedResult);
     }
 
+    @Test
+    void deleteProduct_ShouldReturn_True()
+    {
+        //Given
+        //Product used from setup()
+
+        //When
+        boolean result = productService.deleteProduct(product);
+
+        //Then
+        assertTrue(result);
+    }
+
     //Given
     @ParameterizedTest(name = "providedData={0}, expectedError={1}")
     @CsvFileSource(resources = "/IncorrectProductNameData.csv", numLinesToSkip = 1)

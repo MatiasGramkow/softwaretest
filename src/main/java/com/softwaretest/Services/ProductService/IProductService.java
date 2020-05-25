@@ -10,7 +10,7 @@ public interface IProductService
 
     Product findSpecificProduct(long productId);
 
-    void deleteProduct(Product product);
+    boolean deleteProduct(Product product);
 
     List<Product> getAllProducts();
 }
