@@ -17,11 +17,11 @@ public class ProductService implements IProductService
     ProductRepository productRepository;
 
     @Override
-    public void createOrUpdateProduct(Product product)
+    public Long createOrUpdateProduct(Product product)
     {
         ErrorPrerequisites.productNameLength(product.getName());
         ErrorPrerequisites.productDescriptionLength(product.getDescription());
-        productRepository.save(product);
+        return productRepository.save(product).getProductId();
     }
 
     @Override

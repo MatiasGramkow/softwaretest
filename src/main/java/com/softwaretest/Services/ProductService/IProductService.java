@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IProductService
 {
-    void createOrUpdateProduct(Product product);
+    Long createOrUpdateProduct(Product product);
 
     Product findSpecificProduct(long productId);
 

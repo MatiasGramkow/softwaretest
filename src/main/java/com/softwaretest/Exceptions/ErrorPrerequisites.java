@@ -28,7 +28,7 @@ public class ErrorPrerequisites
         }
 
         if (field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
         }
 
         if(field.contains(" ")){
@@ -53,7 +53,7 @@ public class ErrorPrerequisites
         }
 
         if (field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
         }
 
         return field;
@@ -66,7 +66,7 @@ public class ErrorPrerequisites
         }
 
         if(field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
         }
 
         if (!field.matches("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")){
@@ -81,7 +81,7 @@ public class ErrorPrerequisites
     {
         if(field.length() == 0)
         {
-            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, FIELD_REQUIRED);
         }
 
         if(field.length() > 255)
@@ -97,7 +97,7 @@ public class ErrorPrerequisites
 
         if(field.length() == 0)
         {
-            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, "Required field");
+            throw PersonalException.exceptionOf(ErrorEnum.MISSING_ARGUMENT, FIELD_REQUIRED);
         }
         if(field.length() > 255)
         {
