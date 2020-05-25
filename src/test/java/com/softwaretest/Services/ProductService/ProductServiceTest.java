@@ -1,6 +1,6 @@
 package com.softwaretest.Services.ProductService;
 
-import com.softwaretest.Constants.Constants;
+import static com.softwaretest.Exceptions.Constants.*;
 import com.softwaretest.Controllers.AdminController;
 import com.softwaretest.Controllers.ProductController;
 import com.softwaretest.Exceptions.PersonalException;
@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 
+
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,14 +28,12 @@ class ProductServiceTest
     @InjectMocks
     private ProductService productService;
     private Product product;
-    private Constants constants;
 
     @BeforeEach
     void setup()
     {
         productService = new ProductService();
         product = new Product();
-        constants = new Constants();
     }
 
     @Test
@@ -59,7 +58,7 @@ class ProductServiceTest
             productService.createOrUpdateProduct(product);
         });
 
-        assertEquals(personalException.getMessage(), constants.MISSING_ARGUMENT);
+        assertEquals(personalException.getMessage(), FIELD_REQUIRED);
     }
 
 
