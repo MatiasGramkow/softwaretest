@@ -45,7 +45,6 @@ public class ProductController
         {
             List<Product> products = productService.getAllProducts();
             model.addAttribute("products", products);
-
         }
         catch (Exception e)
         {

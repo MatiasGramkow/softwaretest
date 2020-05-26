@@ -86,8 +86,6 @@ public class CustomerController
         return "login/loginError";
     }
 
-
-
     @GetMapping("/user/update")
     public String updateUser(@Param("userId") long userId, Model model)
     {

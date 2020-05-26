@@ -20,9 +20,12 @@
                     <a class="nav-link text-dark" th:href="${'/products'}">Browse Products</a>
                 </li>
                 <span sec:authorize="isAuthenticated()">
-                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
-                        <a class="nav-link text-dark" th:href="${'/users'}">User Management</a>
-                    </li>
+                    <span sec:authorize="hasAuthority('ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" th:href="${'/users'}">User Management</a>
+                        </li>
+                    </span>
+
 
                     <li class="nav-item">
                         <a class="nav-link text-dark">Favorite Products</a>
