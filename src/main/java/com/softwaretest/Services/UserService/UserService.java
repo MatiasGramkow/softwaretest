@@ -29,6 +29,16 @@ public class UserService implements IUserService
     }
 
     @Override
+    public Long updateUserWithoutHash(User user)
+    {
+        ErrorPrerequisites.usernameCheck(user.getUserName());
+        //ErrorPrerequisites.passwordCheck(user.getPassword());
+        ErrorPrerequisites.emailCheck(user.getEmail());
+
+        return userRepository.save(user).getUserId();
+    }
+
+    @Override
     public void updateUser(Long id, User user) {
         User userDB = userRepository.getOne(id);
         userDB.setUserName(user.getUserName());

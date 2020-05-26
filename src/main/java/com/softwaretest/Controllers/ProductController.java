@@ -60,7 +60,7 @@ public class ProductController
     {
         User user = userService.getCurrentlyLoggedInUser();
 
-        model.addAttribute("user", user.getProducts());
+        model.addAttribute("user", user);
 
         return "product/favoriteList";
     }

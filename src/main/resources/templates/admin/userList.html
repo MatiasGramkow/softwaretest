@@ -11,7 +11,7 @@
    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
         <h1>Users</h1>
             <tr th:each="user : ${users}">
-                <a th:href="${'users?id='+user.getUserId()}">
+                <a th:href="${'user/details?userId='+user.getUserId()}">
                     <div class="gallery desc">
                         <td th:text="${user.getUserName()}"></td>
                         <td th:text="${user.getEmail()}"></td>
