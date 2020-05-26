@@ -63,8 +63,12 @@ public class ProductService implements IProductService
         Set<Product> favoriteList = user.getProducts();
         favoriteList.add(product);
         user.setProducts(favoriteList);
-        userService.createOrUpdateUser(user);
+        userService.updateUserWithoutHash(user);
     }
 
-
+    @Override
+    public Product getOneProduct(Long productId)
+    {
+        return productRepository.getOne(productId);
+    }
 }

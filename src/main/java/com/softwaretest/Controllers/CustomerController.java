@@ -24,15 +24,7 @@ public class CustomerController
     @Autowired
     UserService userService;
 
-    // Add to favorites
-    @PostMapping("/product")
-    public String addToFavoriteList(@ModelAttribute Product product)
-    {
-        User user = userService.getCurrentlyLoggedInUser();
-        productService.addProductToFavoriteList(product, user);
 
-        return "redirect:/";
-    }
 
     // Add to favorites
     @GetMapping("/postman/product")
@@ -67,15 +59,10 @@ public class CustomerController
     {
         if (bindingResult.hasErrors())
         {
-            System.out.println("Email here: " + user.getEmail());
-            System.out.println("ERRORS HERE: " + bindingResult.getAllErrors());
-            System.out.println("HERE");
             return "customer/createCustomer";
         }
         else
         {
-            System.out.println("NOT HERE");
-            System.out.println("Username: " + user.getUserName());
             userService.createOrUpdateUser(user);
             return "redirect:/";
         }
@@ -84,7 +71,7 @@ public class CustomerController
     @PostMapping("/postman/user/create")
     public String postManCreateUser()
     {
-        User user = new User(null,"Matias2","matias12345","rado@ersej.dk","USER",1);
+        User user = new User(null,"Matias2","12345678","a@a.dk","ADMIN",1);
         userService.createOrUpdateUser(user);
         return "redirect:/";
     }
@@ -121,7 +108,7 @@ public class CustomerController
     public String updateUser(@Param("userId") long userId, User user)
     {
         userService.updateUser(userId, user);
-        return "redirect:/";
+        return "redirect:/user/details?userId=" + userId;
     }
 
     @GetMapping("/user/details")

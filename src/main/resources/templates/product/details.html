@@ -1,15 +1,39 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.css"/>
     <title>Title</title>
 </head>
 <body>
-<!-- Navbar here -->
+
 <div th:replace="navbar :: navbar">&nbsp;</div>
 
-<td th:text="${product.name}"></td>
-<td th:text="${product.description}"></td>
-<td th:text="${product.image}"></td>
+<form class="form-control" method="POST" th:action="@{/product/details}">
+
+    <input type="hidden" th:field="${product.productId}"/><br>
+
+    <div class="form-group">
+        <label>Name</label>
+        <dd type="text" th:field="*{product.name}"></dd>
+    </div>
+
+    <div class="form-group">
+        <label>Description</label>
+        <dd type="text" th:field="*{product.description}"></dd>
+    </div>
+
+    <div class="form-group">
+        <label>Image</label>
+        <dd type="text" th:field="${product.image}"></dd>
+    </div>
+
+    <!-- Submit button-->
+    <span>
+        <input class="btn btn-success" style="margin-bottom: 10px" type="submit"/>
+    </span>
+
+
+</form>
 
 </body>
 </html>

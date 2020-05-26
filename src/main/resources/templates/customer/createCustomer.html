@@ -5,54 +5,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.css"/>
-
-        <script type="text/javascript">
-            /*
-function Validate()
-
-
-{
-var password = document.getElementById("password").value;
-var confirmPassword = document.getElementById("confirmPassword").value;
-var email = document.getElementById("email").value;
-var username = document.getElementById("username").value;
-if (email.length > 255)
-{
-    alert("Email too long");
-    document.getElementById("email").style.borderColor = "red";
-    return false;
-}
-if (!email.matches("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
-{
-    alert("Invalid email");
-    document.getElementById("email").style.borderColor = "red";
-    return false;
-}
-if (username.length < 5 && username.length > 0)
-{
-    alert("Username too short");
-    document.getElementById('username_error').innerHTML = 'Username must be filled out';
-    return false;
-}
-if (username.length > 20)
-{
-    alert("Username too long");
-    return false;
-}
-if (password != confirmPassword)
-{
-    alert("Passwords do not match.");
-    document.getElementById("password").style.borderColor = "red";
-    return false;
-}
-
-return true;
-
-}
-
-
- */
-        </script>
     </head>
     <body>
     <!-- Navbar here -->
@@ -86,7 +38,9 @@ return true;
 
             <!-- Submit button-->
             <span>
-                <input class="btn btn-success" onclick="return Validate()" style="margin-bottom: 10px" type="submit"/>
+
+                <input class="btn btn-success" onclick="return Validate()" style="margin-bottom: 10px" type="submit" id="submit"/>
+
             </span>
 
 

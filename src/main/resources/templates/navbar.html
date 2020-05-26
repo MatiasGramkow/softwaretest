@@ -1,17 +1,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://thymeleaf.org">
-<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.css"/>
 <head>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.css"/>
 </head>
 <body>
 
 <nav th:fragment="navbar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 
-    <div>
-        <span th:text="${#authentication.getPrincipal()}"></span>
+    <div sec:authorize="isAuthenticated()">
+        <span th:text="${#authentication.name}"></span>
     </div>
-    <div class="container">
+    <div class="container" style="max-width: 100%">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" th:href="${'/products'}">Browse Products</a>
                 </li>
-                <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="isAuthenticated()" style="display: flex;">
                     <span sec:authorize="hasAuthority('ADMIN')">
                         <li class="nav-item">
                             <a class="nav-link text-dark" th:href="${'/users'}">User Management</a>
@@ -34,17 +34,17 @@
                         <a class="nav-link text-dark" th:href="${'/products/favorites'}">Favorite Products</a>
                     </li>
 
-                    <li>
-                        <a th:href="${'/logout'}">Logout</a>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" th:href="${'/logout'}">Logout</a>
                     </li>
 
                 </span>
-                <span sec:authorize="!isAuthenticated()">
-                    <li>
-                        <a th:href="${'/user/create'}">Sign up</a>
+                <span sec:authorize="!isAuthenticated()" style="display: flex;">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" th:href="${'/user/create'}">Sign up</a>
                     </li>
-                    <li>
-                        <a th:href="${'/login'}">Login</a>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" th:href="${'/login'}">Login</a>
                     </li>
                 </span>
             </ul>

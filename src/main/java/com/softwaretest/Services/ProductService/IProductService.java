@@ -16,4 +16,6 @@ public interface IProductService
     List<Product> getAllProducts();
 
     void addProductToFavoriteList(Product product, User user);
+
+    Product getOneProduct(Long productId);
 }
