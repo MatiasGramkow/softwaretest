@@ -1,19 +1,57 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:form="http://www.w3.org/1999/xhtml">
     <head>
         <title>Create User</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.css"/>
 
         <script type="text/javascript">
-            function Validate() {
-                var password = document.getElementById("password").value;
-                var confirmPassword = document.getElementById("confirmPassword").value;
-                if (password != confirmPassword) {
-                    alert("Passwords do not match.");
-                    return false;
-                }
-                return true;
-            }
+            /*
+function Validate()
+
+
+{
+var password = document.getElementById("password").value;
+var confirmPassword = document.getElementById("confirmPassword").value;
+var email = document.getElementById("email").value;
+var username = document.getElementById("username").value;
+if (email.length > 255)
+{
+    alert("Email too long");
+    document.getElementById("email").style.borderColor = "red";
+    return false;
+}
+if (!email.matches("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+{
+    alert("Invalid email");
+    document.getElementById("email").style.borderColor = "red";
+    return false;
+}
+if (username.length < 5 && username.length > 0)
+{
+    alert("Username too short");
+    document.getElementById('username_error').innerHTML = 'Username must be filled out';
+    return false;
+}
+if (username.length > 20)
+{
+    alert("Username too long");
+    return false;
+}
+if (password != confirmPassword)
+{
+    alert("Passwords do not match.");
+    document.getElementById("password").style.borderColor = "red";
+    return false;
+}
+
+return true;
+
+}
+
+
+ */
         </script>
     </head>
     <body>
@@ -23,23 +61,27 @@
         <form class="form-control" method="POST" th:action="@{/user/create}">
 
             <div class="form-group">
-                <label>Email</label>
-                <input class="form-control" required type="email" th:field="${user.email}"><br>
+                <form:label>Email</form:label>
+                <input type="text" th:field="*{user.email}" />
+                <span th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}">Email error</span>
             </div>
 
             <div class="form-group">
                 <label>Username</label>
-                <input class="form-control" required type="text" th:field="${user.userName}"><br>
+                <input type="text" th:field="*{user.userName}" />
+                <span th:if="${#fields.hasErrors('user.userName')}" th:errors="*{user.userName}">Username error</span>
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input class="form-control" id="password" required type="text" th:field="${user.password}"><br>
+                <input type="text" th:field="${user.password}">
+                <span th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}">Password error</span>
             </div>
 
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input class="form-control" id="confirmPassword" type="tel" th:required="${user.retypePassword}" ><br>
+                <input type="text" th:field="${user.retypePassword}">
+                <span th:if="${#fields.hasErrors('user.retypePassword')}" th:errors="*{user.retypePassword}">Confirm Password error</span>
             </div>
 
             <!-- Submit button-->
@@ -51,3 +93,10 @@
         </form>
     </body>
 </html>
+
+<style>
+    .error {
+        color: red;
+        font-style: italic;
+    }
+</style>

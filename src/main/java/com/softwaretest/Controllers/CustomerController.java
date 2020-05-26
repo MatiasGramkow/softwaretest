@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class CustomerController
@@ -59,21 +62,23 @@ public class CustomerController
     }
 
     @PostMapping("/user/create")
-    public String createUser(@ModelAttribute User user)
+    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult)
     {
-        boolean result = ErrorPrerequisites.passwordCompare(user.getPassword(), user.getRetypePassword());
-        if (result)
+        if (bindingResult.hasErrors())
         {
-            userService.createOrUpdateUser(user);
-            return "redirect:/";
+            System.out.println("Email here: " + user.getEmail());
+            System.out.println("ERRORS HERE: " + bindingResult.getAllErrors());
+            System.out.println("HERE");
+            return "customer/createCustomer";
         }
         else
         {
-            return "/user/create";
+            System.out.println("NOT HERE");
+            System.out.println("Username: " + user.getUserName());
+            userService.createOrUpdateUser(user);
+            return "redirect:/";
         }
-
     }
-
 
     @PostMapping("/postman/user/create")
     public String postManCreateUser()
@@ -86,7 +91,16 @@ public class CustomerController
     @GetMapping("/login")
     public String login()
     {
-        return "login/login";
+        try
+        {
+            userService.getCurrentlyLoggedInUser();
+            return "redirect:/";
+        }
+        catch (Exception e)
+        {
+            return "login/login";
+        }
+
     }
     @GetMapping("/loginError")
     public String loginError() {
