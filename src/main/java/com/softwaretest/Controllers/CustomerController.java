@@ -121,7 +121,7 @@ public class CustomerController
     public String updateUser(@Param("userId") long userId, User user)
     {
         userService.updateUser(userId, user);
-        return "redirect:/";
+        return "redirect:/user/details?userId=" + userId;
     }
 
     @GetMapping("/user/details")
