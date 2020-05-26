@@ -25,10 +25,21 @@
                             <a class="nav-link text-dark" th:href="${'/users'}">User Management</a>
                         </li>
                     </span>
-
-
                     <li class="nav-item">
-                        <a class="nav-link text-dark">Favorite Products</a>
+                        <a class="nav-link text-dark" th:href="${'/products/favorites'}">Favorite Products</a>
+                    </li>
+
+                    <li>
+                        <a th:href="${'/logout'}">Logout</a>
+                    </li>
+
+                </span>
+                <span sec:authorize="!isAuthenticated()">
+                    <li>
+                        <a th:href="${'/user/create'}">Sign up</a>
+                    </li>
+                    <li>
+                        <a th:href="${'/login'}">Login</a>
                     </li>
                 </span>
             </ul>

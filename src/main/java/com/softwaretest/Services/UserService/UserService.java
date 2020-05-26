@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.lang.ref.Reference;
 import java.util.List;
 
 @Service
@@ -24,6 +25,7 @@ public class UserService implements IUserService
         ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
+
         return userRepository.save(user).getUserId();
     }
 
