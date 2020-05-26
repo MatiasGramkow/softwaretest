@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -16,8 +15,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //add a reference to our security data source
     @Autowired
@@ -27,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.jdbcAuthentication().dataSource(securityDataSource)
+                .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("select email, password, enabled from users where email=?")
                 .authoritiesByUsernameQuery("select email, role from users where email=?");
     }
@@ -36,14 +35,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.csrf().disable();
         final String admin = "ADMIN";
 
+
         http.authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/admin/**").hasAnyRole(admin)
-                .and().formLogin()
+                .and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .permitAll()
                 .defaultSuccessUrl("/")
-                .failureUrl("/login")
+                .failureUrl("/loginError")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login")
@@ -55,4 +56,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
