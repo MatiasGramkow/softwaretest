@@ -105,7 +105,7 @@ public class CustomerController
     }
 
     @PostMapping("/user/update")
-    public String updateUser(@Param("userId") long userId, User user)
+    public String updateUser(@Param("userId") long userId, @ModelAttribute User user)
     {
         userService.updateUser(userId, user);
         return "redirect:/user/details?userId=" + userId;

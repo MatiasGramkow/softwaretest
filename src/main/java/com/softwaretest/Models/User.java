@@ -1,5 +1,8 @@
 package com.softwaretest.Models;
 
+import com.softwaretest.Exceptions.ErrorPrerequisites;
+import org.springframework.beans.factory.annotation.Required;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -8,14 +11,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.GroupSequence;
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import static com.softwaretest.Exceptions.Constants.*;
-
 
 @Entity
 @Table(name = "Users")
@@ -24,7 +24,6 @@ public class User implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
 
     @Size(min = 5, message = USERNAME_TOO_SHORT)
     @Size(max = 20, message = USERNAME_TOO_LONG)

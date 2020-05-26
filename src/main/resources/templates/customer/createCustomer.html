@@ -12,36 +12,38 @@
 
         <form class="form-control" method="POST" th:action="@{/user/create}">
 
+            <h1>Sign up</h1>
+
             <input type="hidden" th:value="CUSTOMER" th:field="${user.role}"/><br>
 
             <div class="form-group">
-                <form:label>Email</form:label>
-                <input type="text" th:field="*{user.email}" />
-                <span th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" id="email-error">Email error</span>
+                <label style="font-size: 20px;">Email</label><br>
+                <input id="email-field" type="text" th:field="*{user.email}" /><br>
+                <span style="color: red;" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" id="email-error">Email error</span>
             </div>
 
             <div class="form-group">
-                <label>Username</label>
-                <input type="text" th:field="*{user.userName}" />
-                <span th:if="${#fields.hasErrors('user.userName')}" th:errors="*{user.userName}" id="username-error">Username error</span>
+                <label style="font-size: 20px;">Username</label><br>
+                <input id="username-field" type="text" th:field="*{user.userName}" /><br>
+                <span style="color: red;" th:if="${#fields.hasErrors('user.userName')}" th:errors="*{user.userName}" id="username-error">Username error</span>
             </div>
 
             <div class="form-group">
-                <label>Password</label>
-                <input type="text" th:field="${user.password}">
-                <span th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}" id="password-error">Password error</span>
+                <label style="font-size: 20px;">Password</label><br>
+                <input id="password-field" type="text" th:field="${user.password}"><br>
+                <span style="color: red;" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}" id="password-error">Password error</span>
             </div>
 
             <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="text" th:field="${user.retypePassword}">
-                <span th:if="${#fields.hasErrors('user.retypePassword')}" th:errors="*{user.retypePassword}" id="retype-error">Confirm Password error</span>
+                <label style="font-size: 20px;">Confirm Password</label><br>
+                <input id="retypePassword-field" type="text" th:field="${user.retypePassword}"><br>
+                <span style="color: red;" th:if="${#fields.hasErrors('user.retypePassword')}" th:errors="*{user.retypePassword}" id="retype-error">Confirm Password error</span>
             </div>
 
             <!-- Submit button-->
             <span>
 
-                <input class="btn btn-success" style="margin-bottom: 10px" type="submit" id="submit"/>
+                <input class="btn btn-success" style="margin-bottom: 10px" type="submit" value="Sign up" id="submit"/>
 
             </span>
 
@@ -50,9 +52,45 @@
     </body>
 </html>
 
+<script>
+    var email = document.getElementById('email-error')
+    var username = document.getElementById('username-error')
+    var password = document.getElementById('password-error')
+    var retypePassword = document.getElementById('retype-error')
+    if (email)
+    {
+        document.getElementById('email-field').style.borderColor = "red";
+    }
+    if (username)
+    {
+        document.getElementById('username-field').style.borderColor = "red";
+    }
+    if (password)
+    {
+        document.getElementById('password-field').style.borderColor = "red";
+    }
+    if (retypePassword)
+    {
+        document.getElementById('retypePassword-field').style.borderColor = "red";
+    }
+</script>
+
 <style>
     .error {
         color: red;
         font-style: italic;
+    }
+    .form-control
+    {
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        width: 35%;
+    }
+    .form-group
+    {
+        text-align: center;
     }
 </style>

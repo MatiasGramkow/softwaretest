@@ -40,15 +40,19 @@ public class UserService implements IUserService
     public Long updateUserWithoutHash(User user)
     {
         ErrorPrerequisites.usernameCheck(user.getUserName());
-        ErrorPrerequisites.passwordCheck(user.getPassword());
+        //ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
+        User result = userRepository.getOneByUserId(user.getUserId());
+        result.setUserName(user.getUserName());
+        result.setEmail(user.getUserName());
+        System.out.println("RESULT: " + result);
 
-        return userRepository.save(user).getUserId();
+        return userRepository.save(result).getUserId();
     }
 
     @Override
     public void updateUser(Long id, User user) {
-        User userDB = userRepository.getOne(id);
+        User userDB = userRepository.getOneByUserId(id);
         userDB.setUserName(user.getUserName());
         userDB.setEmail(user.getEmail());
         userRepository.save(userDB);
