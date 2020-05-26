@@ -1,4 +1,6 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://thymeleaf.org">
 
 <head>
 
@@ -9,9 +11,64 @@
 
 </head>
 <body>
-
 <!-- Navbar here -->
 <div th:replace="navbar :: navbar">&nbsp;</div>
 
+<h1 class="centered">Welcome to "Some Web Showroom"</h1>
+
+
+
+
+
+
+<div class="FavoriteList" sec:authorize="isAuthenticated()">
+    <h1 class="centered">Favorite List</h1>
+    <tr th:each="product : ${list}">
+        <a th:href="${'/product/details?productId='+product.getProductId()}">
+            <div class="gallery desc">
+                <td th:text="${product.name}"></td>
+                <img src="https://cb2.scene7.com/is/image/CB2/SnakeTableLampSHF19/?$web_zoom$&190430165808&wid=450&hei=450"></img>
+                <td th:text="${product.description}"></td>
+            </div>
+        </a>
+    </tr>
+</div>
+
 </body>
 </html>
+
+<style>
+    div.gallery {
+        margin: 5px;
+        border: 1px solid #ccc;
+        float: left;
+        width: 180px;
+    }
+
+    div.gallery:hover {
+        border: 1px solid #777;
+    }
+
+    div.gallery img {
+        width: 100%;
+        height: auto;
+    }
+
+    div.desc {
+        padding: 15px;
+        text-align: center;
+    }
+    .centered
+    {
+        text-align: center;
+    }
+
+    .FavoriteList
+    {
+        position: absolute;
+        height: 200px;
+        width: 50%;
+        top: 50%;
+        left: 25%;
+    }
+</style>
