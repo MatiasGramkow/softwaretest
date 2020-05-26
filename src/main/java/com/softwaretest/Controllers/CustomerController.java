@@ -68,7 +68,7 @@ public class CustomerController
     @PostMapping("/postman/user/create")
     public String postManCreateUser()
     {
-        User user = new User(1L,"Matias2","matias12345","niels@ersej.dk","ADMIN",1);
+        User user = new User(null,"Matias2","matias12345","rado@ersej.dk","USER",1);
         userService.createOrUpdateUser(user);
         return "redirect:/";
     }
@@ -78,8 +78,10 @@ public class CustomerController
     {
         return "login/login";
     }
-
-
+    @GetMapping("/loginError")
+    public String loginError() {
+        return "login/loginError";
+    }
 
     @GetMapping("/user/update")
     public String updateUser(@Param("userId") long userId, Model model)
