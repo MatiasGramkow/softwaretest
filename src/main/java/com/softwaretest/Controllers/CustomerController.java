@@ -71,9 +71,15 @@ public class CustomerController
     @PostMapping("/postman/user/create")
     public String postManCreateUser()
     {
-        User user = new User(1L,"Matias","matias12","matias@matias.dk","ADMIN",1);
+        User user = new User(1L,"Matias2","matias12345","niels@ersej.dk","ADMIN",1);
         userService.createOrUpdateUser(user);
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login()
+    {
+        return "login/login";
     }
 
 
