@@ -24,16 +24,7 @@ public class CustomerController
     @Autowired
     UserService userService;
 
-    // Add to favorites
-    @PostMapping("/product/details")
-    public String addToFavoriteList(@ModelAttribute Product product)
-    {
-        User user = userService.getCurrentlyLoggedInUser();
-        System.out.println("Product: " + product);
-        productService.addProductToFavoriteList(product, user);
 
-        return "redirect:/";
-    }
 
     // Add to favorites
     @GetMapping("/postman/product")
