@@ -9,15 +9,17 @@
 
     <div th:replace="navbar :: navbar">&nbsp;</div>
     <h1>Favorite Products</h1>
-    <tr th:each="product : ${user.getProducts()}">
-        <a th:href="${'/product/details?productId='+product.getProductId()}">
-            <div class="gallery desc">
-                <td th:text="${product.name}"></td>
-                <img src="https://cb2.scene7.com/is/image/CB2/SnakeTableLampSHF19/?$web_zoom$&190430165808&wid=450&hei=450"></img>
-                <td th:text="${product.description}"></td>
-            </div>
-        </a>
-    </tr>
+
+        <tr th:each="product : ${user.getProducts()}">
+            <a th:href="${'/product/details?productId='+product.getProductId()}">
+                <div class="gallery desc">
+                    <td th:text="${product.name}"></td>
+                    <img src="https://cb2.scene7.com/is/image/CB2/SnakeTableLampSHF19/?$web_zoom$&190430165808&wid=450&hei=450"></img>
+                    <td th:text="${product.description}"></td>
+                </div>
+            </a>
+        </tr>
+
     </body>
 </html>
 
