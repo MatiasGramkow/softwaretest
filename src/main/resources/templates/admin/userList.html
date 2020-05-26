@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+</body>
+</html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<!-- Navbar here -->
+<div th:replace="navbar :: navbar">&nbsp;</div>
+
+<h1>Get Users</h1>
+<span sec:authorize="isAuthenticated()">
+    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+           <tr th:each="user : ${users}">
+                <a th:href="${'users?id='+user.getUserId()}">
+                    <div class="gallery desc">
+                        <td th:text="${user.getUserName()}"></td>
+                        <td th:text="${user.getEmail()}"></td>
+                    </div>
+                </a>
+           </tr>
+    </li>
+</span>
+
 
 </body>
 </html>
+
+<style>
+    div.gallery {
+        margin: 5px;
+        border: 1px solid #ccc;
+        float: left;
+        width: 180px;
+    }
+
+    div.gallery:hover {
+        border: 1px solid #777;
+    }
+
+    div.gallery img {
+        width: 100%;
+        height: auto;
+    }
+
+    div.desc {
+        padding: 15px;
+        text-align: center;
+    }
+</style>
