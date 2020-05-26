@@ -7,6 +7,7 @@ import com.softwaretest.Services.ProductService.ProductService;
 import com.softwaretest.Services.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -103,9 +104,9 @@ public class CustomerController
     }
 
     @PostMapping("/user/update")
-    public String updateUser(@ModelAttribute User user)
+    public String updateUser(@Param("userId") long userId, User user)
     {
-        userService.createOrUpdateUser(user);
+        userService.updateUser(userId, user);
         return "redirect:/";
     }
 

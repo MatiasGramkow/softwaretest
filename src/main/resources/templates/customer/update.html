@@ -19,9 +19,7 @@
             <dd  class="col-sm-10"><input type="text" th:value="${user.userName}" th:field="*{user.userName}"></dd>
             <dt class="col-sm-2">Email</dt>
             <dd class="col-sm-10"><input type="text" th:value="${user.email}" th:field="*{user.email}"></dd>
-            <input type="hidden" th:value="${user.userId}" th:field="*{user.userId}">
-            <input type="hidden" th:value="${user.password}" th:field="*{user.password}">
-            <input type="hidden" th:value="${user.role}" th:field="*{user.role}">
+            <input type="hidden" th:field="*{user.userId}">
         </dl>
         <input class="btn btn-success" style="margin-bottom: 10px" type="submit"/>
     </form>
