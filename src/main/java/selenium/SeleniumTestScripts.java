@@ -12,8 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class SeleniumTestScripts {
-    private static SeleniumExample seleniumExample;
-    private String expectedTitle = "Details";
+
     SeleniumConfig config = new SeleniumConfig();
 
     @BeforeClass
@@ -51,6 +50,7 @@ public class SeleniumTestScripts {
         String password = RandomStringUtils.randomAlphabetic(8, 16);
 
         config.getDriver().get("http://localhost:8081/user/create");
+        assertEquals(config.getDriver().getTitle(),"Create User");
         WebElement elementEmail = config.getDriver().findElement(By.id("email"));
         elementEmail.sendKeys(email);
         WebElement elementUsername = config.getDriver().findElement(By.id("userName"));
@@ -64,4 +64,6 @@ public class SeleniumTestScripts {
         assertEquals("Homepage", config.getDriver().getTitle());
         config.getDriver().close();
     }
+
+
 }
