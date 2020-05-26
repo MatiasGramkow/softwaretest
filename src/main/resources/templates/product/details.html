@@ -1,15 +1,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.css"/>
     <title>Title</title>
 </head>
 <body>
 <!-- Navbar here -->
 <div th:replace="navbar :: navbar">&nbsp;</div>
 
-<td th:text="${product.name}"></td>
-<td th:text="${product.description}"></td>
-<td th:text="${product.image}"></td>
+<form class="form-control" method="POST" th:action="@{/product/details}">
+    <input type="hidden" th:field="${product.productId}"/><br>
+    <td th:text="${product.name}"></td>
+    <td th:text="${product.description}"></td>
+    <td th:text="${product.image}"></td>
+
+    <span sec:authorize="isAuthenticated()">
+        <input class="btn btn-success" style="margin-bottom: 10px" type="submit"/>
+    </span>
+</form>
 
 </body>
 </html>

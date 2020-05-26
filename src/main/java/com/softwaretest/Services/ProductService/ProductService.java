@@ -63,8 +63,7 @@ public class ProductService implements IProductService
         Set<Product> favoriteList = user.getProducts();
         favoriteList.add(product);
         user.setProducts(favoriteList);
-        userService.createOrUpdateUser(user);
+        System.out.println("User før: " + user);
+        userService.updateUserWithoutHash(user);
     }
-
-
 }

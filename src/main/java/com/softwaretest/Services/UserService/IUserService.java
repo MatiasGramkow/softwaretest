@@ -8,6 +8,8 @@ public interface IUserService
 {
     Long createOrUpdateUser(User user);
 
+    Long updateUserWithoutHash(User user);
+
     void updateUser(Long id, User user);
 
     User findSpecificUser(long userId);
