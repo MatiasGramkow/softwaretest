@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org"
+      xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.css"/>
+    <title>Title</title>
+</head>
+<body>
+<header><div th:replace="navbar :: navbar">&nbsp;</div></header>
+<h1>Update</h1>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <form class="form-control" method="POST" th:action="@{/user/update}">
+        <dl th:each="user : ${user}" class="row">
+            <dt class="col-sm-2">Name</dt>
+            <dd  class="col-sm-10"><input type="text" th:value="${user.userName}" th:field="*{user.userName}"></dd>
+            <dt class="col-sm-2">Email</dt>
+            <dd class="col-sm-10"><input type="text" th:value="${user.email}" th:field="*{user.email}"></dd>
+            <input type="hidden" th:value="${user.userId}" th:field="*{user.userId}">
+            <input type="hidden" th:value="${user.password}" th:field="*{user.password}">
+            <input type="hidden" th:value="${user.role}" th:field="*{user.role}">
+        </dl>
+        <input class="btn btn-success" style="margin-bottom: 10px" type="submit"/>
+    </form>
+</div>
+
+</body>
+</html>

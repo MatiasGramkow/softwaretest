@@ -89,7 +89,7 @@ public class CustomerController
         User user = userService.findSpecificUser(userId);
         model.addAttribute("user", user);
 
-        return "customer/updateCustomer";
+        return "customer/update";
     }
 
     @PostMapping("/user/update")
