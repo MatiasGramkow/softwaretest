@@ -37,6 +37,17 @@ public class ProductController
         return "product/details";
     }
 
+    // Add to favorites
+    @PostMapping("/product/details")
+    public String addToFavoriteList(@ModelAttribute Product product)
+    {
+        User user = userService.getCurrentlyLoggedInUser();
+        Product result = productService.getOneProduct(product.getProductId());
+        productService.addProductToFavoriteList(result, user);
+
+        return "redirect:/";
+    }
+
     //  Read Products
     @GetMapping("/products")
     public String getProducts(Model model)
