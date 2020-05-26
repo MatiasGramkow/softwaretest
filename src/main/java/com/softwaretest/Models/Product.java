@@ -24,6 +24,12 @@ public class Product
     {
     }
 
+    public Product(Long productId, String name)
+    {
+        this.productId = productId;
+        this.name = name;
+    }
+
     public Product(Long productId, String name, byte[] image, Set<User> users, String description)
     {
         this.productId = productId;

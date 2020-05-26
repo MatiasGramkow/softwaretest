@@ -27,8 +27,27 @@ public class CustomerController
     public String addToFavoriteList(@ModelAttribute Product product)
     {
         User user = userService.getCurrentlyLoggedInUser();
-        //productService.addProductToFavoriteList(product);
-        return "";
+        productService.addProductToFavoriteList(product, user);
+
+        return "redirect:/";
+    }
+
+    // Add to favorites
+    @GetMapping("/postman/product")
+    public String postmanAddToFavoriteLists()
+    {
+
+        return "postmanFavoriteAddHtml";
+    }
+
+    @PostMapping("/postman/product")
+    public String postmanAddToFavoriteList()
+    {
+        User user = userService.getCurrentlyLoggedInUser();
+        Product product = new Product(1L,"Niels");
+        productService.addProductToFavoriteList(product, user);
+
+        return "redirect:/";
     }
 
     // Create User
@@ -48,7 +67,7 @@ public class CustomerController
         return "redirect:/";
     }
 
-    /*
+
     @PostMapping("/postman/user/create")
     public String postManCreateUser()
     {
@@ -57,7 +76,7 @@ public class CustomerController
         return "redirect:/";
     }
 
-     */
+
 
     @GetMapping("/user/update")
     public String updateUser(@Param("userId") long userId, Model model)
@@ -65,7 +84,7 @@ public class CustomerController
         User user = userService.findSpecificUser(userId);
         model.addAttribute("user", user);
 
-        return "updateCustomer";
+        return "customer/updateCustomer";
     }
 
     @PostMapping("/user/update")
@@ -81,7 +100,7 @@ public class CustomerController
         User user = userService.findSpecificUser(userId);
         model.addAttribute("user", user);
 
-        return "customer";
+        return "customer/details";
     }
 
     @PostMapping("/user/delete")
@@ -89,16 +108,5 @@ public class CustomerController
     {
         userService.deleteUser(user);
         return "redirect:/";
-    }
-
-
-    //For testing purposes, don't know the right aproach with Spring
-    public boolean login(User user, String userName, String password)
-    {
-        if (user != null && userName == user.getUserName() && password == user.getPassword())
-        {
-            return true;
-        }
-        return false;
     }
 }

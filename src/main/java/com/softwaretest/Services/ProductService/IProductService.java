@@ -1,6 +1,7 @@
 package com.softwaretest.Services.ProductService;
 
 import com.softwaretest.Models.Product;
+import com.softwaretest.Models.User;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface IProductService
     boolean deleteProduct(Product product);
 
     List<Product> getAllProducts();
+
+    void addProductToFavoriteList(Product product, User user);
 }

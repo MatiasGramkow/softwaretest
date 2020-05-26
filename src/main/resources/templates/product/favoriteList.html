@@ -4,11 +4,12 @@
         <title>Title</title>
     </head>
     <body>
-        <tr>
-            <div class="gallery desc">
-                <td th:text="${user.products}"></td>
-            </div>
-        </tr>
+        <div class="gallery desc">
+            <tr th:each="product : ${user}">
+                <td th:text="${product.name}"></td>
+            </tr>
+        </div>
+
     </body>
 </html>
 

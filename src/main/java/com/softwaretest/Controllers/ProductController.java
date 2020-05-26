@@ -34,7 +34,7 @@ public class ProductController
     {
         Product product = productService.findSpecificProduct(productId);
         model.addAttribute("product", product);
-        return "product";
+        return "product/details";
     }
 
     //  Read Products
@@ -60,8 +60,9 @@ public class ProductController
     public String getFavoriteProducts(Model model)
     {
         User user = userService.getCurrentlyLoggedInUser();
-        model.addAttribute("user", user);
 
-        return "favoriteList";
+        model.addAttribute("user", user.getProducts());
+
+        return "product/favoriteList";
     }
 }
