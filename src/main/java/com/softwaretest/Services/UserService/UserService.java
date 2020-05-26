@@ -25,8 +25,12 @@ public class UserService implements IUserService
     public Long createOrUpdateUser(User user)
     {
         ErrorPrerequisites.usernameCheck(user.getUserName());
-        //ErrorPrerequisites.passwordCheck(user.getPassword());
+        ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
+        if (user.getRole().equals(""))
+        {
+            user.setRole("CUSTOMER");
+        }
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
 
         return userRepository.save(user).getUserId();
@@ -36,7 +40,7 @@ public class UserService implements IUserService
     public Long updateUserWithoutHash(User user)
     {
         ErrorPrerequisites.usernameCheck(user.getUserName());
-        //ErrorPrerequisites.passwordCheck(user.getPassword());
+        ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
 
         return userRepository.save(user).getUserId();

@@ -28,7 +28,7 @@
     </div>
 
     <!-- Submit button-->
-    <span>
+    <span sec:authorize="isAuthenticated()">
         <input class="btn btn-success" style="margin-bottom: 10px" type="submit"/>
     </span>
 

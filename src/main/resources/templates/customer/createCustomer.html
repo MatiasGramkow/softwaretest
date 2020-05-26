@@ -12,6 +12,8 @@
 
         <form class="form-control" method="POST" th:action="@{/user/create}">
 
+            <input type="hidden" th:value="CUSTOMER" th:field="${user.role}"/><br>
+
             <div class="form-group">
                 <form:label>Email</form:label>
                 <input type="text" th:field="*{user.email}" />
