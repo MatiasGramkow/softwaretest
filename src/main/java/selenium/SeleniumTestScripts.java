@@ -1,4 +1,4 @@
-package com.softwaretest.Config;
+package selenium;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.AfterClass;
@@ -11,7 +11,7 @@ import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class SeleniumWithJUnitLiveTest {
+public class SeleniumTestScripts {
     private static SeleniumExample seleniumExample;
     private String expectedTitle = "Details";
     SeleniumConfig config = new SeleniumConfig();
@@ -26,19 +26,24 @@ public class SeleniumWithJUnitLiveTest {
 
     }
 
-    /*
+
     @Test
     public void whenNameIsUpdated_thenDetailsPageIsLoadedWithUpdatedName(){
-        seleniumExample.clickUpdateLink();
-        WebElement element = seleniumExample.getElementById("userName");
+        String username = RandomStringUtils.randomAlphabetic(5, 20);
+
+        config.getDriver().get("http://localhost:8081/user/details?userId=5");
+        WebElement elementUpdate = config.getDriver().findElement(By.id("update"));
+        elementUpdate.click();
+        WebElement element = config.getDriver().findElement(By.id("userName"));
         element.clear();
-        element.sendKeys("Testname");
-        WebElement updateBtn = seleniumExample.getElementById("submit");
+        element.sendKeys(username);
+        WebElement updateBtn = config.getDriver().findElement(By.id("submit"));
         updateBtn.click();
-        String name = seleniumExample.getTextById("username");
-        assertEquals("Testname", name);
+        String name = config.getDriver().findElement(By.id("username")).getText();
+        assertEquals(username, name);
+        config.getDriver().close();
     }
-*/
+
     @Test
     public void whenUserIsSignedUp_thenUserCanLogIn() {
         String email = RandomStringUtils.randomAlphabetic(6, 50) + "@gmail.com";
