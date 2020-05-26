@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CustomerController
@@ -109,10 +106,13 @@ public class CustomerController
         return "customer/details";
     }
 
-    @PostMapping("/user/delete")
-    public String deleteUser(@ModelAttribute User user)
+
+
+    @RequestMapping("/user/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id, Model model)
     {
+        User user = userService.findSpecificUser(id);
         userService.deleteUser(user);
-        return "redirect:/";
+        return "redirect:/products";
     }
 }
