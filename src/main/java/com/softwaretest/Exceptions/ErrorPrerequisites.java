@@ -1,6 +1,7 @@
 package com.softwaretest.Exceptions;
 
-import com.softwaretest.Models.Product;
+import com.softwaretest.Models.User;
+
 import static com.softwaretest.Exceptions.Constants.*;
 
 public class ErrorPrerequisites
@@ -51,7 +52,8 @@ public class ErrorPrerequisites
         return field;
     }
 
-    public static String passwordCheck(String field){
+    public static String passwordCheck(String field)
+    {
 
         if (field.length() > 16){
             throw PersonalException.exceptionOf(ErrorEnum.FIELD_TOO_LONG_ARGUMENT, PASSWORD_TOO_LONG);
@@ -64,6 +66,7 @@ public class ErrorPrerequisites
         if (field.equals("")){
             throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
         }
+
 
         return field;
     }
@@ -115,5 +118,14 @@ public class ErrorPrerequisites
 
         return field;
 
+    }
+
+    public static boolean passwordCompare(String password, String retypePassword)
+    {
+        if (password != retypePassword)
+        {
+            throw PersonalException.exceptionOf(ErrorEnum.PASSWORD_DOES_NOT_MATCH_ARGUMENT, PASSWORD_DOES_NOT_MATCH);
+        }
+        return true;
     }
 }

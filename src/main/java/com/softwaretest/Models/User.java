@@ -8,6 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import static com.softwaretest.Exceptions.Constants.*;
 
 
 @Entity
@@ -18,11 +25,21 @@ public class User implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+
+    @Size(min = 5, message = USERNAME_TOO_SHORT)
+    @Size(max = 20, message = USERNAME_TOO_LONG)
     private String userName;
 
+    @Size(min = 8, message = PASSWORD_TOO_SHORT)
     private String password;
 
+    @Transient
+    @Size(min = 8, message = PASSWORD_TOO_SHORT)
+    private String retypePassword;
+
     @Column(unique = true)
+    @Email
+    @Size(max = 255, message = EMAIL_TOO_LONG)
     private String email;
 
     private String role;
@@ -128,11 +145,20 @@ public class User implements Serializable
         return products;
     }
 
+    public String getRetypePassword()
+    {
+        return retypePassword;
+    }
+
+    public void setRetypePassword(String retypePassword)
+    {
+        this.retypePassword = retypePassword;
+    }
+
     public void setProducts(Set<Product> products)
     {
         this.products = products;
     }
-
     @Override
     public String toString()
     {

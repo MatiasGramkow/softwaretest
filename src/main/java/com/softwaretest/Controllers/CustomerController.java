@@ -1,17 +1,19 @@
 package com.softwaretest.Controllers;
 
+import com.softwaretest.Exceptions.ErrorPrerequisites;
 import com.softwaretest.Models.Product;
 import com.softwaretest.Models.User;
 import com.softwaretest.Services.ProductService.ProductService;
 import com.softwaretest.Services.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class CustomerController
@@ -57,16 +59,27 @@ public class CustomerController
         User user = new User();
         model.addAttribute("user", user);
 
-        return "createCustomer";
+        return "customer/createCustomer";
     }
 
     @PostMapping("/user/create")
-    public String createUser(@ModelAttribute User user)
+    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult)
     {
-        userService.createOrUpdateUser(user);
-        return "redirect:/";
+        if (bindingResult.hasErrors())
+        {
+            System.out.println("Email here: " + user.getEmail());
+            System.out.println("ERRORS HERE: " + bindingResult.getAllErrors());
+            System.out.println("HERE");
+            return "customer/createCustomer";
+        }
+        else
+        {
+            System.out.println("NOT HERE");
+            System.out.println("Username: " + user.getUserName());
+            userService.createOrUpdateUser(user);
+            return "redirect:/";
+        }
     }
-
 
     @PostMapping("/postman/user/create")
     public String postManCreateUser()
@@ -79,7 +92,16 @@ public class CustomerController
     @GetMapping("/login")
     public String login()
     {
-        return "login/login";
+        try
+        {
+            userService.getCurrentlyLoggedInUser();
+            return "redirect:/";
+        }
+        catch (Exception e)
+        {
+            return "login/login";
+        }
+
     }
     @GetMapping("/loginError")
     public String loginError() {
@@ -92,13 +114,13 @@ public class CustomerController
         User user = userService.findSpecificUser(userId);
         model.addAttribute("user", user);
 
-        return "customer/updateCustomer";
+        return "customer/update";
     }
 
     @PostMapping("/user/update")
-    public String updateUser(@ModelAttribute User user)
+    public String updateUser(@Param("userId") long userId, User user)
     {
-        userService.createOrUpdateUser(user);
+        userService.updateUser(userId, user);
         return "redirect:/";
     }
 
@@ -111,10 +133,13 @@ public class CustomerController
         return "customer/details";
     }
 
-    @PostMapping("/user/delete")
-    public String deleteUser(@ModelAttribute User user)
+
+
+    @RequestMapping("/user/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id, Model model)
     {
+        User user = userService.findSpecificUser(id);
         userService.deleteUser(user);
-        return "redirect:/";
+        return "redirect:/products";
     }
 }

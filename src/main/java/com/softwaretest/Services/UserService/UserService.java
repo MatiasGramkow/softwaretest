@@ -24,8 +24,18 @@ public class UserService implements IUserService
         //ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
+
         return userRepository.save(user).getUserId();
     }
+
+    @Override
+    public void updateUser(Long id, User user) {
+        User userDB = userRepository.getOne(id);
+        userDB.setUserName(user.getUserName());
+        userDB.setEmail(user.getEmail());
+        userRepository.save(userDB);
+    }
+
 
     @Override
     public User findSpecificUser(long userId)
