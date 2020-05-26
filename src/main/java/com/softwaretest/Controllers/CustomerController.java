@@ -1,5 +1,6 @@
 package com.softwaretest.Controllers;
 
+import com.softwaretest.Exceptions.ErrorPrerequisites;
 import com.softwaretest.Models.Product;
 import com.softwaretest.Models.User;
 import com.softwaretest.Services.ProductService.ProductService;
@@ -57,14 +58,23 @@ public class CustomerController
         User user = new User();
         model.addAttribute("user", user);
 
-        return "createCustomer";
+        return "customer/createCustomer";
     }
 
     @PostMapping("/user/create")
     public String createUser(@ModelAttribute User user)
     {
-        userService.createOrUpdateUser(user);
-        return "redirect:/";
+        boolean result = ErrorPrerequisites.passwordCompare(user.getPassword(), user.getRetypePassword());
+        if (result)
+        {
+            userService.createOrUpdateUser(user);
+            return "redirect:/";
+        }
+        else
+        {
+            return "/user/create";
+        }
+
     }
 
 

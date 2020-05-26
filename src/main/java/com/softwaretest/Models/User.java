@@ -22,6 +22,9 @@ public class User implements Serializable
 
     private String password;
 
+    @Transient
+    private String retypePassword;
+
     @Column(unique = true)
     private String email;
 
@@ -128,11 +131,20 @@ public class User implements Serializable
         return products;
     }
 
+    public String getRetypePassword()
+    {
+        return retypePassword;
+    }
+
+    public void setRetypePassword(String retypePassword)
+    {
+        this.retypePassword = retypePassword;
+    }
+
     public void setProducts(Set<Product> products)
     {
         this.products = products;
     }
-
     @Override
     public String toString()
     {

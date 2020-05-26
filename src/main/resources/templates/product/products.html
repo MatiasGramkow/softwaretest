@@ -10,7 +10,7 @@
 <h1>Browse Products</h1>
 
 <tr th:each="product : ${products}">
-    <a th:href="${'/product/details?id='+product.getProductId()}">
+    <a th:href="${'/product/details?productId='+product.getProductId()}">
         <div class="gallery desc">
             <td th:text="${product.name}"></td>
             <img src="https://cb2.scene7.com/is/image/CB2/SnakeTableLampSHF19/?$web_zoom$&190430165808&wid=450&hei=450"></img>
