@@ -14,7 +14,7 @@ public class SeleniumConfig {
     public SeleniumConfig() {
         Capabilities capabilities = DesiredCapabilities.firefox();
         driver = new FirefoxDriver(capabilities);
-        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
     static {

@@ -83,10 +83,6 @@ public class SeleniumSignUpTests {
         WebElement updateBtn = config.getDriver().findElement(By.id("submit"));
         updateBtn.click();
 
-
-        WebElement header1 = config.getDriver().findElement(By.tagName("h1"));
-        System.out.println(header1.toString());
-
         String response = config.getDriver().findElement(By.id(elementID)).getText();
         assertEquals(expected, response);
 
