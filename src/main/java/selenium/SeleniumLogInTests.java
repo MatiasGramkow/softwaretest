@@ -52,9 +52,9 @@ public class SeleniumLogInTests
         assertEquals(expected,result);
     }
 
-    @ParameterizedTest(name = "email={0}, password={1}, expected={2}")
+    @ParameterizedTest(name ="testCase={0}, email={1}, password={2}, expected={3}")
     @CsvFileSource(resources = "/SeleniumData/LoginCredentials.csv", numLinesToSkip = 1)
-    public void T2_loginWithInvalidPassword_ShouldReturn_ErrorMesssage(String email, String password, String expected)
+    public void login_WithInvalidCredentials_ShouldReturnErrorMesssage(String testCase, String email, String password, String expected)
     {
         config.getDriver().get("http://localhost:8081/login");
         assertEquals("Login", config.getDriver().getTitle());
@@ -72,5 +72,7 @@ public class SeleniumLogInTests
         elementSubmit.click();
         String error = config.getDriver().findElement(By.id("username-error")).getText();
         assertEquals(expected,error);
+
+        config.getDriver().quit();
     }
 }
