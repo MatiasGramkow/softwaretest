@@ -18,25 +18,25 @@
 
             <div class="form-group">
                 <label style="font-size: 20px;">Email</label><br>
-                <input id="email-field" type="text" th:field="*{user.email}" /><br>
+                <input id="email" type="text" th:field="*{user.email}" /><br>
                 <span style="color: red;" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" id="email-error">Email error</span>
             </div>
 
             <div class="form-group">
                 <label style="font-size: 20px;">Username</label><br>
-                <input id="username-field" type="text" th:field="*{user.userName}" /><br>
+                <input id="username" type="text" th:field="*{user.userName}" /><br>
                 <span style="color: red;" th:if="${#fields.hasErrors('user.userName')}" th:errors="*{user.userName}" id="username-error">Username error</span>
             </div>
 
             <div class="form-group">
                 <label style="font-size: 20px;">Password</label><br>
-                <input id="password-field" type="text" th:field="${user.password}"><br>
+                <input id="password" type="text" th:field="${user.password}"><br>
                 <span style="color: red;" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}" id="password-error">Password error</span>
             </div>
 
             <div class="form-group">
                 <label style="font-size: 20px;">Confirm Password</label><br>
-                <input id="retypePassword-field" type="text" th:field="${user.retypePassword}"><br>
+                <input id="retypePassword" type="text" th:field="${user.retypePassword}"><br>
                 <span style="color: red;" th:if="${#fields.hasErrors('user.retypePassword')}" th:errors="*{user.retypePassword}" id="retype-error">Confirm Password error</span>
             </div>
 

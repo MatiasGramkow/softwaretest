@@ -36,7 +36,7 @@ public class SeleniumSignUpTests {
         assertEquals("Create User", config.getDriver().getTitle());
 
         WebElement elementEmail = config.getDriver().findElement(By.id("email"));
-        WebElement elementUsername = config.getDriver().findElement(By.id("userName"));
+        WebElement elementUsername = config.getDriver().findElement(By.id("username"));
         WebElement elementPassword = config.getDriver().findElement(By.id("password"));
         WebElement elementConfirmPassword = config.getDriver().findElement(By.id("retypePassword"));
         WebElement elementSubmit = config.getDriver().findElement(By.id("submit"));
@@ -51,7 +51,7 @@ public class SeleniumSignUpTests {
     }
 
     @Test
-    public void whenPasswordProvidedOnSignUpIsTooShort_thenErrorMessageRecieved(){
+    public void T12_whenPasswordProvidedOnSignUpIsTooShort_thenErrorMessageRecieved(){
         String expected = "Password too short";
 
         config.getDriver().get("http://localhost:8081/user/create");
