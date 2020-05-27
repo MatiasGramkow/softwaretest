@@ -70,7 +70,7 @@ public class SeleniumLogInTests
         elementPassword.sendKeys(password);
 
         elementSubmit.click();
-        String error = config.getDriver().findElement(By.id("username-error")).getText();
+        String error = config.getDriver().findElement(By.id("login-error")).getText();
         assertEquals(expected,error);
 
         config.getDriver().quit();
