@@ -66,6 +66,17 @@ public class User implements Serializable
         this.enabled = 1;
     }
 
+    public User(Long userId, @NotNull(message = FIELD_REQUIRED) String userName, @NotNull(message = FIELD_REQUIRED) String password, @Size(message = FIELD_REQUIRED) String retypePassword, @Email(message = EMAIL_INVALID) @Size(max = 255, message = EMAIL_TOO_LONG) @NotNull(message = FIELD_REQUIRED) String email, String role, int enabled)
+    {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.retypePassword = retypePassword;
+        this.email = email;
+        this.role = role;
+        this.enabled = enabled;
+    }
+
     public User(Long userId, String userName, String password, String email, String role, int enabled)
     {
         this.userId = userId;

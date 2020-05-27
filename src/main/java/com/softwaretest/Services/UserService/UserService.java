@@ -25,8 +25,6 @@ public class UserService implements IUserService
     @Override
     public Long createUser(User user)
     {
-        System.out.println("PASSWORDS: " + user.getPassword());
-        System.out.println("PASSWORDS: " + user.getRetypePassword());
         ErrorPrerequisites.usernameCheck(user.getUserName());
         ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());

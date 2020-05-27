@@ -37,7 +37,8 @@ class UserServiceTests
     @BeforeEach
     void setup()
     {
-        this.user = new User(1L,"matias","password","test@test.dk","ADMIN", 1);
+        //this.user = new User(1L,"matias","password","test@test.dk","ADMIN", 1);
+        this.user = new User(1L,"MatiasGram","password","password","test@test.dk","ADMIN",1);
         this.users = new ArrayList<>();
     }
 
