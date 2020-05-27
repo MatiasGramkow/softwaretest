@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,16 +23,20 @@ public class UserService implements IUserService
     UserRepository userRepository;
 
     @Override
-    public Long createOrUpdateUser(User user)
+    public Long createUser(User user)
     {
+        System.out.println("PASSWORDS: " + user.getPassword());
+        System.out.println("PASSWORDS: " + user.getRetypePassword());
         ErrorPrerequisites.usernameCheck(user.getUserName());
         ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
+        ErrorPrerequisites.passwordCompare(user.getPassword(),user.getRetypePassword());
         if (user.getRole().equals(""))
         {
             user.setRole("CUSTOMER");
         }
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
+        user.setRetypePassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
 
         return userRepository.save(user).getUserId();
     }
@@ -40,21 +45,23 @@ public class UserService implements IUserService
     public Long updateUserWithoutHash(User user)
     {
         ErrorPrerequisites.usernameCheck(user.getUserName());
-        //ErrorPrerequisites.passwordCheck(user.getPassword());
         ErrorPrerequisites.emailCheck(user.getEmail());
         User result = userRepository.getOneByUserId(user.getUserId());
         result.setUserName(user.getUserName());
-        result.setEmail(user.getUserName());
+        result.setEmail(user.getEmail());
         System.out.println("RESULT: " + result);
 
         return userRepository.save(result).getUserId();
     }
 
     @Override
+    @Transactional
     public void updateUser(Long id, User user) {
-        User userDB = userRepository.getOneByUserId(id);
+        User userDB = userRepository.getOneByUserId(getCurrentlyLoggedInUser().getUserId());
         userDB.setUserName(user.getUserName());
         userDB.setEmail(user.getEmail());
+        System.out.println("TISSER-USER: " + user);
+        System.out.println("TISSER-USERDB: " + userDB);
         userRepository.save(userDB);
     }
 

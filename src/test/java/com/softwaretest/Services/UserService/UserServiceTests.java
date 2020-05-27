@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.softwaretest.Exceptions.Constants.*;
-import static com.softwaretest.Exceptions.ErrorEnum.USER_DOES_NOT_EXIST_ARGUMENT;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -55,7 +54,7 @@ class UserServiceTests
             when(userRepository.save(user)).thenReturn(user);
 
             //When
-            Long result = userService.createOrUpdateUser(user);
+            Long result = userService.createUser(user);
 
             //Then
             assertEquals(result, user.getUserId());
@@ -69,7 +68,7 @@ class UserServiceTests
             {
                 //When
                 user.setUserName(providedData);
-                userService.createOrUpdateUser(user);
+                userService.createUser(user);
 
             });
             //Then
@@ -85,7 +84,7 @@ class UserServiceTests
             {
                 //When
                 user.setPassword(providedData);
-                userService.createOrUpdateUser(user);
+                userService.createUser(user);
 
             });
             //Then
@@ -100,7 +99,7 @@ class UserServiceTests
             {
                 //When
                 user.setEmail(providedData);
-                userService.createOrUpdateUser(user);
+                userService.createUser(user);
 
             });
             //Then

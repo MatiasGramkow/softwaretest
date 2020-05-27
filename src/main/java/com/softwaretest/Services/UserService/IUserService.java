@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface IUserService
 {
-    Long createOrUpdateUser(User user);
+    Long createUser(User user);
 
     Long updateUserWithoutHash(User user);
 

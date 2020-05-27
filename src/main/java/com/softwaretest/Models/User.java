@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 import javax.validation.GroupSequence;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -25,20 +26,20 @@ public class User implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Size(min = 5, message = USERNAME_TOO_SHORT)
-    @Size(max = 20, message = USERNAME_TOO_LONG)
+    @NotNull(message = FIELD_REQUIRED)
     private String userName;
 
-    @Size(min = 8, message = PASSWORD_TOO_SHORT)
+    @NotNull(message = FIELD_REQUIRED)
     private String password;
 
     @Transient
-    @Size(min = 8, message = PASSWORD_TOO_SHORT)
+    @Size(message = FIELD_REQUIRED)
     private String retypePassword;
 
     @Column(unique = true)
-    @Email
+    @Email(message = EMAIL_INVALID)
     @Size(max = 255, message = EMAIL_TOO_LONG)
+    @NotNull(message = FIELD_REQUIRED)
     private String email;
 
     private String role;
@@ -157,17 +158,5 @@ public class User implements Serializable
     public void setProducts(Set<Product> products)
     {
         this.products = products;
-    }
-    @Override
-    public String toString()
-    {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                ", products=" + products +
-                '}';
     }
 }

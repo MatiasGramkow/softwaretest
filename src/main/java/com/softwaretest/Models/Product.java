@@ -1,6 +1,7 @@
 package com.softwaretest.Models;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -85,15 +86,6 @@ public class Product
         this.users = products;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Product{" +
-                "productId=" + productId +
-                ", name='" + name + '\'' +
-                ", products=" + users +
-                '}';
-    }
 
     public String getDescription() {
         return description;

@@ -1,14 +1,15 @@
 package com.softwaretest.Controllers;
 
-import com.softwaretest.Exceptions.ErrorPrerequisites;
+import com.softwaretest.Exceptions.PersonalException;
 import com.softwaretest.Models.Product;
 import com.softwaretest.Models.User;
 import com.softwaretest.Services.ProductService.ProductService;
 import com.softwaretest.Services.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,8 @@ public class CustomerController
 
 
 
-    // Add to favorites
+    // PostMan Should Be Removed
+    /*
     @GetMapping("/postman/product")
     public String postmanAddToFavoriteLists()
     {
@@ -43,8 +45,11 @@ public class CustomerController
 
         return "redirect:/";
     }
+    */
 
-    // Create User
+
+
+    // Create
     @GetMapping("/user/create")
     public String createUser(Model model)
     {
@@ -55,16 +60,44 @@ public class CustomerController
     }
 
     @PostMapping("/user/create")
-    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult)
+    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model)
     {
-        if (bindingResult.hasErrors())
+        try
         {
-            return "customer/createCustomer";
+            if (bindingResult.hasErrors())
+            {
+                return "customer/createCustomer";
+            }
+            else
+            {
+                userService.createUser(user);
+                return "redirect:/";
+            }
         }
-        else
+
+        catch (DataIntegrityViolationException e)
         {
-            userService.createOrUpdateUser(user);
-            return "redirect:/";
+            // Error Message
+            model.addAttribute("Error", "User Already Exists");
+
+            // Error Href
+            model.addAttribute("ErrorHref", "create");
+
+            // Error Button Text
+            model.addAttribute("ErrorButtonText", "Go Back To Create Page");
+            return "error/error";
+        }
+        catch (PersonalException pe)
+        {
+            // Error Message
+            model.addAttribute("Error", pe.getMessage());
+
+            // Error Href
+            model.addAttribute("ErrorHref", "create");
+
+            // Error Button Text
+            model.addAttribute("ErrorButtonText", "Go Back To Create Page");
+            return "error/error";
         }
     }
 
@@ -72,10 +105,54 @@ public class CustomerController
     public String postManCreateUser()
     {
         User user = new User(null,"Matias2","12345678","a@a.dk","ADMIN",1);
-        userService.createOrUpdateUser(user);
+        userService.createUser(user);
         return "redirect:/";
     }
 
+    // Update
+    @GetMapping("/user/update")
+    public String updateUser(@Param("userId") long userId, Model model)
+    {
+        User user = userService.findSpecificUser(userId);
+        model.addAttribute("user", user);
+
+        return "customer/update";
+    }
+
+    @PostMapping("/user/update")
+    @Transactional
+    public String updateUser(@Param("userId") long userId, @ModelAttribute User user)
+    {
+        userService.updateUserWithoutHash(user);
+        return "redirect:/user/details?userId=" + userId;
+    }
+
+    // Read One
+    @GetMapping("/user/details")
+    public String getUser(@RequestParam("userId") long userId, Model model)
+    {
+        User user = userService.findSpecificUser(userId);
+        model.addAttribute("user", user);
+
+        return "customer/details";
+    }
+
+    // Delete
+    @RequestMapping("/user/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id, Model model)
+    {
+        User user = userService.findSpecificUser(id);
+        userService.deleteUser(user);
+        return "redirect:/products";
+    }
+
+
+    // Login
+    @GetMapping("/loginError")
+    public String loginError()
+    {
+        return "login/loginError";
+    }
     @GetMapping("/login")
     public String login()
     {
@@ -89,44 +166,5 @@ public class CustomerController
             return "login/login";
         }
 
-    }
-    @GetMapping("/loginError")
-    public String loginError() {
-        return "login/loginError";
-    }
-
-    @GetMapping("/user/update")
-    public String updateUser(@Param("userId") long userId, Model model)
-    {
-        User user = userService.findSpecificUser(userId);
-        model.addAttribute("user", user);
-
-        return "customer/update";
-    }
-
-    @PostMapping("/user/update")
-    public String updateUser(@Param("userId") long userId, @ModelAttribute User user)
-    {
-        userService.updateUser(userId, user);
-        return "redirect:/user/details?userId=" + userId;
-    }
-
-    @GetMapping("/user/details")
-    public String getUser(@RequestParam("userId") long userId, Model model)
-    {
-        User user = userService.findSpecificUser(userId);
-        model.addAttribute("user", user);
-
-        return "customer/details";
-    }
-
-
-
-    @RequestMapping("/user/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model)
-    {
-        User user = userService.findSpecificUser(id);
-        userService.deleteUser(user);
-        return "redirect:/products";
     }
 }

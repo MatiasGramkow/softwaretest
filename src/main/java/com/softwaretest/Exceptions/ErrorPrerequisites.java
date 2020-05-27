@@ -122,7 +122,7 @@ public class ErrorPrerequisites
 
     public static boolean passwordCompare(String password, String retypePassword)
     {
-        if (password != retypePassword)
+        if (!password.equals(retypePassword))
         {
             throw PersonalException.exceptionOf(ErrorEnum.PASSWORD_DOES_NOT_MATCH_ARGUMENT, PASSWORD_DOES_NOT_MATCH);
         }
