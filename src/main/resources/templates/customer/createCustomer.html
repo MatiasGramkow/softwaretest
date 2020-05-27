@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label style="font-size: 20px;">Email</label><br>
                 <input id="email" type="text" th:field="*{user.email}" /><br>
-                <span style="color: red;" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" id="email-error">Email error</span>
+                <span style="color: #ff0000;" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}" id="email-error">Email error</span>
             </div>
 
             <div class="form-group">
