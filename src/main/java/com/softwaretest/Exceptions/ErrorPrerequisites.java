@@ -38,7 +38,7 @@ public class ErrorPrerequisites
         }
 
         if (field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED + USERNAME);
         }
 
         if(field.contains(" ")){
@@ -64,7 +64,7 @@ public class ErrorPrerequisites
         }
 
         if (field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED + PASSWORD);
         }
 
 
@@ -78,7 +78,7 @@ public class ErrorPrerequisites
         }
 
         if(field.equals("")){
-            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED);
+            throw PersonalException.exceptionOf(ErrorEnum.FIELD_EQUALS_ZERO_ARGUMENT, FIELD_REQUIRED + EMAIL);
         }
 
         if (!field.matches("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")){

@@ -20,4 +20,7 @@ public class Constants
     public static final String PRODUCT_NAME_TOO_LONG = "Product name too long";
     public static final String PRODUCT_DESCRIPTION_TOO_LONG = "Product description too long";
     public static final String PASSWORD_DOES_NOT_MATCH = "Passwords do not match";
+    public static final String EMAIL = "(Email)";
+    public static final String USERNAME = "(Username)";
+    public static final String PASSWORD = "(Password)";
 }
