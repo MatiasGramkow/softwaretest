@@ -26,20 +26,14 @@ public class User implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NotNull(message = FIELD_REQUIRED)
     private String userName;
 
-    @NotNull(message = FIELD_REQUIRED)
     private String password;
 
     @Transient
-    @Size(message = FIELD_REQUIRED)
     private String retypePassword;
 
     @Column(unique = true)
-    @Email(message = EMAIL_INVALID)
-    @Size(max = 255, message = EMAIL_TOO_LONG)
-    @NotNull(message = FIELD_REQUIRED)
     private String email;
 
     private String role;
@@ -66,7 +60,7 @@ public class User implements Serializable
         this.enabled = 1;
     }
 
-    public User(Long userId, @NotNull(message = FIELD_REQUIRED) String userName, @NotNull(message = FIELD_REQUIRED) String password, @Size(message = FIELD_REQUIRED) String retypePassword, @Email(message = EMAIL_INVALID) @Size(max = 255, message = EMAIL_TOO_LONG) @NotNull(message = FIELD_REQUIRED) String email, String role, int enabled)
+    public User(Long userId, @NotBlank(message = FIELD_REQUIRED) String userName, @NotBlank(message = FIELD_REQUIRED) String password, @Size(message = FIELD_REQUIRED) String retypePassword, @Email(message = EMAIL_INVALID) @Size(max = 255, message = EMAIL_TOO_LONG) @NotBlank(message = FIELD_REQUIRED) String email, String role, int enabled)
     {
         this.userId = userId;
         this.userName = userName;

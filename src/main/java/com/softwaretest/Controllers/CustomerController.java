@@ -60,19 +60,12 @@ public class CustomerController
     }
 
     @PostMapping("/user/create")
-    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model)
+    public String createUser(@ModelAttribute User user, Model model)
     {
         try
         {
-            if (bindingResult.hasErrors())
-            {
-                return "customer/createCustomer";
-            }
-            else
-            {
-                userService.createUser(user);
-                return "redirect:/";
-            }
+            userService.createUser(user);
+            return "redirect:/";
         }
 
         catch (DataIntegrityViolationException e)
@@ -104,7 +97,7 @@ public class CustomerController
     @PostMapping("/postman/user/create")
     public String postManCreateUser()
     {
-        User user = new User(null,"Matias2","12345678","a@a.dk","ADMIN",1);
+        User user = new User(null,"Matias2","testpassword","testpassword","test@test.dk","ADMIN",1);
         userService.createUser(user);
         return "redirect:/";
     }

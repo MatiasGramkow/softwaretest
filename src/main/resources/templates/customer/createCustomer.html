@@ -25,7 +25,8 @@
             <div class="form-group">
                 <label style="font-size: 20px;">Username</label><br>
                 <input id="username" type="text" th:field="*{user.userName}" /><br>
-                <span style="color: red;" th:if="${#fields.hasErrors('user.userName')}" th:errors="*{user.userName}" id="username-error">Username error</span>
+                <span style="color: red;" th:if="${#fields.hasErrors('user.userName')}" th:errors="*{user.userName.}" id="username-error">Username error</span>
+
             </div>
 
             <div class="form-group">
@@ -43,7 +44,7 @@
             <!-- Submit button-->
             <span>
 
-                <input class="btn btn-success" style="margin-bottom: 10px" type="submit" value="Sign up" id="submit"/>
+                <input class="btn btn-success" style="margin-bottom: 10px" onclick="f()" type="submit" value="Sign up" id="submit"/>
 
             </span>
 
@@ -53,10 +54,12 @@
 </html>
 
 <script>
+
     var email = document.getElementById('email-error')
     var username = document.getElementById('username-error')
     var password = document.getElementById('password-error')
     var retypePassword = document.getElementById('retype-error')
+
     if (email)
     {
         document.getElementById('email-field').style.borderColor = "red";
@@ -73,6 +76,8 @@
     {
         document.getElementById('retypePassword-field').style.borderColor = "red";
     }
+
+
 </script>
 
 <style>

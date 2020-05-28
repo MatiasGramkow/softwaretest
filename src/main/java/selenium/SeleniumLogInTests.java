@@ -30,7 +30,7 @@ public class SeleniumLogInTests
     @Test
     public void T1_userWithCorrectCredentials_ShouldLogin()
     {
-        String expected = "redirect:/";
+        String expected = "Homepage";
 
         config.getDriver().get("http://localhost:8081/login");
         assertEquals("Login", config.getDriver().getTitle());
