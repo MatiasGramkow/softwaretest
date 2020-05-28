@@ -1,7 +1,6 @@
 package com.softwaretest.Controllers;
 
 import com.softwaretest.Exceptions.PersonalException;
-import com.softwaretest.Models.Product;
 import com.softwaretest.Models.User;
 import com.softwaretest.Services.ProductService.ProductService;
 import com.softwaretest.Services.UserService.UserService;
@@ -11,10 +10,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @Controller
 public class CustomerController
@@ -24,30 +21,6 @@ public class CustomerController
 
     @Autowired
     UserService userService;
-
-
-
-    // PostMan Should Be Removed
-    /*
-    @GetMapping("/postman/product")
-    public String postmanAddToFavoriteLists()
-    {
-
-        return "postmanFavoriteAddHtml";
-    }
-
-    @PostMapping("/postman/product")
-    public String postmanAddToFavoriteList()
-    {
-        User user = userService.getCurrentlyLoggedInUser();
-        Product product = new Product(1L,"Niels");
-        productService.addProductToFavoriteList(product, user);
-
-        return "redirect:/";
-    }
-    */
-
-
 
     // Create
     @GetMapping("/user/create")

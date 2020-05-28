@@ -1,7 +1,5 @@
 package com.softwaretest.Models;
 
-import com.softwaretest.Exceptions.ErrorPrerequisites;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,9 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
-import javax.validation.GroupSequence;
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 import static com.softwaretest.Exceptions.Constants.*;

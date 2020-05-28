@@ -2,10 +2,6 @@ package com.softwaretest.Exceptions;
 
 public class PersonalException extends RuntimeException
 {
-    public static PersonalException exceptionOf(ErrorEnum ee)
-    {
-        return new PersonalException(ee, ee.getDescription());
-    }
 
     public static PersonalException exceptionOf(ErrorEnum ee, String message)
     {

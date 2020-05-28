@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +46,6 @@ public class UserService implements IUserService
         User result = userRepository.getOneByUserId(user.getUserId());
         result.setUserName(user.getUserName());
         result.setEmail(user.getEmail());
-        System.out.println("RESULT: " + result);
 
         return userRepository.save(result).getUserId();
     }
@@ -58,8 +56,6 @@ public class UserService implements IUserService
         User userDB = userRepository.getOneByUserId(getCurrentlyLoggedInUser().getUserId());
         userDB.setUserName(user.getUserName());
         userDB.setEmail(user.getEmail());
-        System.out.println("TISSER-USER: " + user);
-        System.out.println("TISSER-USERDB: " + userDB);
         userRepository.save(userDB);
     }
 
